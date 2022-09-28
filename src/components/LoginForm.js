@@ -23,7 +23,7 @@ export default function RegisterForm() {
 
         if (response) {
             setToken(response.token);
-            //localStorage.setItem("token", response.token);
+            localStorage.setItem("token", response.token);
             navigate("/feed");
         } else {
             setLoading(false);

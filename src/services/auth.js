@@ -20,3 +20,14 @@ export async function loginUser(body) {
             alert(err.response.data);
         });
 }
+
+export async function validateToken(config) {
+    return axios
+        .get(urlAPI("profile"), config)
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            alert(err.response.data);
+        });
+}

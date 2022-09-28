@@ -1,9 +1,19 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../shared/Logo";
 import LoginForm from "../components/LoginForm";
+import { checkToken } from "../utils/validateToken";
+import { useEffect, useContext } from "react";
+import UserContext from "../context/UserContext";
 
 export default function Login() {
+    const navigate = useNavigate();
+    const { setToken, page } = useContext(UserContext);
+    
+    useEffect(() => {
+        checkToken(navigate, setToken, page);
+    }, []);
+
     return (
         <Container>
             <Logo />

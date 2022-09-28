@@ -1,9 +1,22 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../shared/Logo";
 import RegisterForm from "../components/RegisterForm";
+import { useEffect, useContext } from "react";
+import UserContext from "../context/UserContext";
+import { checkToken } from "../utils/validateToken";
 
 export default function Register() {
+    const navigate = useNavigate();
+    const { setToken, page } = useContext(UserContext);
+    const tokenStorage = localStorage.getItem("token");
+
+    useEffect(() => {
+        if (tokenStorage) {
+            checkToken(navigate, setToken, page);
+        }
+    }, []);
+
     return (
         <Container>
             <Logo />
