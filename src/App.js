@@ -1,9 +1,15 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
   return (
-    <div>
-      VolleyChat
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={< Login />} />
+        <Route path="/sign-up" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
