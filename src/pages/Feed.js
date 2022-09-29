@@ -2,9 +2,22 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import CategoryMenu from "../components/CategoryMenu";
 import Timeline from "../components/Timeline";
-import { useState } from "react";
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../context/UserContext";
+import { checkToken } from "../utils/validateToken";
 
 export default function Feed () {
+    const navigate = useNavigate();
+    const { token, setToken } = useContext(UserContext);
+    
+    useEffect(() => {
+        if(!token) {
+            const page = "feed";
+            checkToken(navigate, setToken, page);
+        }   
+    }, []);
+
     return (
         <Conteiner>
             <Header />

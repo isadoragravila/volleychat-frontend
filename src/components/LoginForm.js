@@ -5,6 +5,7 @@ import { useState, useContext } from "react";
 import { loginUser } from "../services/auth";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { checkToken } from "../utils/validateToken";
 
 export default function RegisterForm() {
     const { setToken } = useContext(UserContext);
@@ -24,6 +25,8 @@ export default function RegisterForm() {
         if (response) {
             setToken(response.token);
             localStorage.setItem("token", response.token);
+            const page = "feed";
+            checkToken(navigate, setToken, page)
             navigate("/feed");
         } else {
             setLoading(false);

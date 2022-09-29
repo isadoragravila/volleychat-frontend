@@ -8,11 +8,12 @@ import { checkToken } from "../utils/validateToken";
 
 export default function Register() {
     const navigate = useNavigate();
-    const { setToken, page } = useContext(UserContext);
+    const { setToken } = useContext(UserContext);
     const tokenStorage = localStorage.getItem("token");
 
     useEffect(() => {
         if (tokenStorage) {
+            const page = "feed";
             checkToken(navigate, setToken, page);
         }
     }, []);

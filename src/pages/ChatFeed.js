@@ -2,10 +2,22 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import CategoryMenu from "../components/CategoryMenu";
 import ChatMenu from "../components/ChatMenu";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import UserContext from "../context/UserContext";
+import { checkToken } from "../utils/validateToken";
 
-export default function Feed() {
+export default function ChatFeed() {
     const navigate = useNavigate();
+    const { token, setToken } = useContext(UserContext);
+    const { categoryId } = useParams();
+    
+    useEffect(() => {
+        if(!token) {
+            const page = (`feed/${categoryId}`);
+            checkToken(navigate, setToken, page);
+        }
+    }, []);
 
     return (
         <Conteiner>

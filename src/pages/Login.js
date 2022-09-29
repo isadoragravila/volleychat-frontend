@@ -8,9 +8,10 @@ import UserContext from "../context/UserContext";
 
 export default function Login() {
     const navigate = useNavigate();
-    const { setToken, page } = useContext(UserContext);
+    const { setToken } = useContext(UserContext);
     
     useEffect(() => {
+        const page = "feed";
         checkToken(navigate, setToken, page);
     }, []);
 

@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 export default function Header() {
     const { setToken } = useContext(UserContext);
     const navigate = useNavigate();
-    
+    const imageProfile = localStorage.getItem("image");
+
     function logout() {
         localStorage.removeItem("token");
-        //localStorage.removeItem("image");
+        localStorage.removeItem("image");
         setToken("");
-        //setImageProfile("");
         navigate("/");
     }
     return(
@@ -20,7 +20,7 @@ export default function Header() {
             <Menu>
                 <p>Edit profile</p>
                 <p onClick={logout}>Logout</p>
-                <img src="https://almeidajunior-prod1.s3.amazonaws.com/prod/uploads/news/5d7a7cbf6ad5d.jpg" alt="user" />
+                <img src={imageProfile} alt="user" />
             </Menu>
         </Conteiner>
     )

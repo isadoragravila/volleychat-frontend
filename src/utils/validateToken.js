@@ -2,6 +2,7 @@ import { getProfile } from "../services/auth";
 
 export async function checkToken(navigate, setToken, page) {
     const tokenStorage = localStorage.getItem("token");
+    localStorage.removeItem("image");
 
     if (tokenStorage) {
         const body = null;
@@ -14,6 +15,7 @@ export async function checkToken(navigate, setToken, page) {
 
         if (response) {
             setToken(tokenStorage);
+            localStorage.setItem("image", response.image);
             navigate(`/${page}`);
         } else {
             localStorage.removeItem("token");
