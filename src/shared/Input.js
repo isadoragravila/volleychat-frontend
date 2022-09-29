@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function Input({ type, placeholder, disabled, value, onChange }) {
+export default function Input({ type, placeholder, disabled, value, onChange, id }) {
     return (
         <InputStyle
             type={type}
@@ -9,16 +9,18 @@ export default function Input({ type, placeholder, disabled, value, onChange }) 
             value={value}
             onChange={onChange}
             required
+            id={id}
         />
     );
 }
 
 const InputStyle = styled.input`
     background-color: #f2f2f2;
-    height: 50px;
+    height: ${props => props.id !== "title" ? "50px" : "35px" };
     width: 90%;
     border-radius: 5px;
-    font-size: 23px;
+    font-weight: 600;
+    font-size: ${props => props.id !== "title" ? "23px" : "18px" };
     border: none;
     outline: none;
     text-indent: 10px;

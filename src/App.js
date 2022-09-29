@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Feed from "./pages/Feed";
+import ChatFeed from "./pages/ChatFeed";
 import { useState } from "react";
 import UserContext from "./context/UserContext";
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/:categoryId" element={<ChatFeed />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

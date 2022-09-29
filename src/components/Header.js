@@ -1,0 +1,55 @@
+import styled from "styled-components";
+
+export default function Header() {
+    return(
+        <Conteiner>
+            <Logo>VolleyChat</Logo>
+            <Menu>
+                <p>Edit profile</p>
+                <p>Logout</p>
+                <img src="https://almeidajunior-prod1.s3.amazonaws.com/prod/uploads/news/5d7a7cbf6ad5d.jpg" alt="user" />
+            </Menu>
+        </Conteiner>
+    )
+}
+
+const Conteiner = styled.div`
+  height: 72px;
+  width: 100%;
+  background-color: #142b73;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+`;
+
+const Logo = styled.div`
+    font-family: "Poppins";
+    font-weight: 700;
+    font-size: 40px;
+    color: #f2c230;
+`
+
+const Menu = styled.div`
+    display: flex;
+    align-items: center;
+    p {
+        font-family: "Poppins";
+        font-weight: 700;
+        font-size: 15px;
+        color: #f2c230;
+        margin-right: 30px;
+        cursor: pointer;
+    }
+
+    img {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 22.5px;
+    }
+`

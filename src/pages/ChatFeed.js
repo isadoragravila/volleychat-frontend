@@ -1,20 +1,23 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import CategoryMenu from "../components/CategoryMenu";
-import Timeline from "../components/Timeline";
-import { useState } from "react";
+import ChatMenu from "../components/ChatMenu";
+import { useNavigate } from "react-router-dom";
 
-export default function Feed () {
+export default function Feed() {
+    const navigate = useNavigate();
+
     return (
         <Conteiner>
             <Header />
             <Content>
                 <LeftSide>
-                <h3>Choose your chat category</h3>
+                    <h3>Choose your chat category</h3>
+                    <h6 onClick={() => navigate("/feed")}>Return to timeline</h6>
                     <CategoryMenu />
                 </LeftSide>
                 <RightSide>
-                    <Timeline />
+                    <ChatMenu />
                 </RightSide>
             </Content>
         </Conteiner>
@@ -49,7 +52,17 @@ const LeftSide = styled.div`
         font-size: 20px;
         color: #142b73;
         text-align: center;
-        margin-bottom: 48px;
+        margin-bottom: 17px;
+    }
+    h6 {
+        font-family: "Poppins";
+        font-weight: 400;
+        font-size: 14px;
+        color: #142b73;
+        text-align: center;
+        margin-bottom: 17px;
+        cursor: pointer;
+        text-decoration: underline;
     }
 `;
 
