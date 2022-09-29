@@ -1,30 +1,45 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import CategoryMenu from "../components/CategoryMenu";
 import Timeline from "../components/Timeline";
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { checkToken } from "../utils/validateToken";
+import { getCategories } from "../services/categories";
+import MenuButton from "../components/MenuButton";
 
-export default function Feed () {
+export default function Feed() {
     const navigate = useNavigate();
     const { token, setToken } = useContext(UserContext);
-    
+    const [categories, setCategories] = useState([]);
+
     useEffect(() => {
-        if(!token) {
+        if (!token) {
             const page = "feed";
             checkToken(navigate, setToken, page);
-        }   
-    }, []);
+            return
+        }
+
+        async function fetchCategories() {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            const response = await getCategories(config);
+            setCategories(response);
+        }
+
+        fetchCategories();
+    }, [token]);
 
     return (
         <Conteiner>
             <Header />
             <Content>
                 <LeftSide>
-                <h3>Choose your chat category</h3>
-                    <CategoryMenu />
+                    <h3>Choose your chat category</h3>
+                    {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
                 </LeftSide>
                 <RightSide>
                     <Timeline />

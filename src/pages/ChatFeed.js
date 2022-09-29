@@ -1,23 +1,38 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import CategoryMenu from "../components/CategoryMenu";
 import ChatMenu from "../components/ChatMenu";
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { checkToken } from "../utils/validateToken";
+import { getCategories } from "../services/categories";
+import MenuButton from "../components/MenuButton";
 
 export default function ChatFeed() {
     const navigate = useNavigate();
     const { token, setToken } = useContext(UserContext);
     const { categoryId } = useParams();
+    const [categories, setCategories] = useState([]);
     
     useEffect(() => {
         if(!token) {
             const page = (`feed/${categoryId}`);
             checkToken(navigate, setToken, page);
+            return
         }
-    }, []);
+
+        async function fetchCategories() {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            };
+            const response = await getCategories(config);
+            setCategories(response);
+        }
+
+        fetchCategories();
+    }, [token]);
 
     return (
         <Conteiner>
@@ -26,7 +41,7 @@ export default function ChatFeed() {
                 <LeftSide>
                     <h3>Choose your chat category</h3>
                     <h6 onClick={() => navigate("/feed")}>Return to timeline</h6>
-                    <CategoryMenu />
+                    {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
                 </LeftSide>
                 <RightSide>
                     <ChatMenu />
