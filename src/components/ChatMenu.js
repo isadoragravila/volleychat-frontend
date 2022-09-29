@@ -19,7 +19,8 @@ export default function ChatMenu() {
     ];
 
     return (
-        <>
+        <Conteiner>
+        <h4>women's volleyball</h4>
             <CreateChat />
             {chats.length === 0 ? (
                 <Informative>
@@ -28,9 +29,18 @@ export default function ChatMenu() {
             ) : (
                 chats.map(item => <FeedCard key={item.id} id={item.id} title={item.title} description={item.description} time={item.time} />)
             )}
-        </>
+        </Conteiner>
     )
 }
+
+const Conteiner = styled.div`
+    h4 {
+        font-family: "Poppins";
+        font-weight: 700;
+        font-size: 25px;
+        color: #142b73;
+    }
+`
 
 const Informative = styled.div`
     display: flex;

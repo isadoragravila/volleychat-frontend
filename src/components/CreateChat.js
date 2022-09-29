@@ -19,7 +19,6 @@ export default function CreateChat() {
 
     return (
         <Conteiner>
-            <h4>women's volleyball</h4>
             {openCreate ? (
                 <Content>
                     <Form onSubmit={create}>
@@ -54,12 +53,6 @@ export default function CreateChat() {
 
 const Conteiner = styled.div`
     margin-bottom: 20px;
-    h4 {
-        font-family: "Poppins";
-        font-weight: 700;
-        font-size: 25px;
-        color: #142b73;
-    }
 `
 
 const Content = styled.div`
