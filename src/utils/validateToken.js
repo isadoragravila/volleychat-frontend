@@ -1,4 +1,4 @@
-import { validateToken } from "../services/auth";
+import { getProfile } from "../services/auth";
 
 export async function checkToken(navigate, setToken, page) {
     const tokenStorage = localStorage.getItem("token");
@@ -10,7 +10,7 @@ export async function checkToken(navigate, setToken, page) {
                 Authorization: `Bearer ${tokenStorage}`
             }
         }
-        const response = await validateToken(config);
+        const response = await getProfile(config);
 
         if (response) {
             setToken(tokenStorage);

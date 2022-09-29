@@ -21,7 +21,7 @@ export async function loginUser(body) {
         });
 }
 
-export async function validateToken(config) {
+export async function getProfile(config) {
     return axios
         .get(urlAPI("profile"), config)
         .then((res) => {

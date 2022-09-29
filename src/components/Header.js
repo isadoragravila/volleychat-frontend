@@ -1,12 +1,25 @@
 import styled from "styled-components";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+    const { setToken } = useContext(UserContext);
+    const navigate = useNavigate();
+    
+    function logout() {
+        localStorage.removeItem("token");
+        //localStorage.removeItem("image");
+        setToken("");
+        //setImageProfile("");
+        navigate("/");
+    }
     return(
         <Conteiner>
             <Logo>VolleyChat</Logo>
             <Menu>
                 <p>Edit profile</p>
-                <p>Logout</p>
+                <p onClick={logout}>Logout</p>
                 <img src="https://almeidajunior-prod1.s3.amazonaws.com/prod/uploads/news/5d7a7cbf6ad5d.jpg" alt="user" />
             </Menu>
         </Conteiner>
