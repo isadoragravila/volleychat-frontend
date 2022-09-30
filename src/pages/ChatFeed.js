@@ -57,7 +57,7 @@ export default function ChatFeed() {
                     {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
                 </LeftSide>
                 <RightSide>
-                    <ChatMenu categoryId={categoryId} chats={chats} category={categoryName} />
+                    <ChatMenu categoryId={categoryId} chats={chats} setChats={setChats} category={categoryName} />
                 </RightSide>
             </Content>
         </Conteiner>

@@ -5,7 +5,7 @@ export default function FeedCard({ id, title, description, time }) {
         <Conteiner>
             <UpSide>
                 <Title>{title}</Title>
-                <Time>{time} ago</Time>
+                <Time>{time}</Time>
             </UpSide>
             <DownSide>
                 <Description>{description}</Description>

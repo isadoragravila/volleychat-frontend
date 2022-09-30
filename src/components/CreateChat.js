@@ -5,23 +5,24 @@ import Button from "../shared/Button";
 import { IoClose } from "react-icons/io5";
 import { createChat } from "../services/chats";
 import UserContext from "../context/UserContext";
+import { getChatrooms } from "../services/chats";
 
-export default function CreateChat({ categoryId }) {
+export default function CreateChat({ categoryId, setChats }) {
     const { token } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [openCreate, setOpenCreate] = useState(false);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
     async function create(e) {
         e.preventDefault();
         setLoading(true);
-
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
 
         const body = { title, description };
 
@@ -31,10 +32,17 @@ export default function CreateChat({ categoryId }) {
             setTitle('');
             setDescription('');
             setLoading(false);
-            setOpenCreate(false)
+            setOpenCreate(false);
+            fetchChatrooms();
+
         } else {
             setLoading(false);
         }
+    }
+
+    async function fetchChatrooms() {
+        const response = await getChatrooms(config, categoryId);
+        setChats(response.chatrooms);
     }
 
     return (

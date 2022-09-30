@@ -2,17 +2,17 @@ import styled from "styled-components";
 import CreateChat from "./CreateChat";
 import FeedCard from "./FeedCard";
 
-export default function ChatMenu({ categoryId, chats, category }) {
+export default function ChatMenu({ categoryId, chats, setChats, category }) {
     return (
         <Conteiner>
         <h4>{category}</h4>
-            <CreateChat categoryId={categoryId} />
+            <CreateChat setChats={setChats} categoryId={categoryId} />
             {chats.length === 0 ? (
                 <Informative>
                     <p>There aren't any chats yet! Create the first one!</p>
                 </Informative>
             ) : (
-                chats.map(chat => <FeedCard key={chat.id} id={chat.id} title={chat.title} description={chat.description} time={chat.time} />)
+                chats.map(chat => <FeedCard key={chat.id} id={chat.id} title={chat.title} description={chat.description} time={chat.fromNow} />)
             )}
         </Conteiner>
     )
