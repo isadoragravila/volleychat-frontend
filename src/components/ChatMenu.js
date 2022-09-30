@@ -2,32 +2,17 @@ import styled from "styled-components";
 import CreateChat from "./CreateChat";
 import FeedCard from "./FeedCard";
 
-export default function ChatMenu({ categoryId }) {
-    const chats = [
-        {
-            id: 1,
-            title: "Brasil x Colômbia",
-            description: "Espaço para discussão do terceiro jogo do Brasil no mundial feminino de vôlei",
-            time: "7 hours"
-        },
-        {
-            id: 2,
-            title: "Superliga feminina",
-            description: "O que esperar das seleções mineiras nesse ano 22-23",
-            time: "13 hours"
-        }
-    ];
-
+export default function ChatMenu({ categoryId, chats, category }) {
     return (
         <Conteiner>
-        <h4>women's volleyball</h4>
+        <h4>{category}</h4>
             <CreateChat categoryId={categoryId} />
             {chats.length === 0 ? (
                 <Informative>
                     <p>There aren't any chats yet! Create the first one!</p>
                 </Informative>
             ) : (
-                chats.map(item => <FeedCard key={item.id} id={item.id} title={item.title} description={item.description} time={item.time} />)
+                chats.map(chat => <FeedCard key={chat.id} id={chat.id} title={chat.title} description={chat.description} time={chat.time} />)
             )}
         </Conteiner>
     )

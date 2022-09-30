@@ -10,3 +10,13 @@ export async function createChat(body, config, params) {
             alert(err.response.data);
         });
 }
+
+export async function getChatrooms(config, params) {
+    return axios.get(urlAPI(`chats/${params}`), config)
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            alert(err.response.data);
+        });
+}

@@ -7,12 +7,21 @@ import UserContext from "../context/UserContext";
 import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
+import { getChatrooms } from "../services/chats";
 
 export default function ChatFeed() {
     const navigate = useNavigate();
     const { token, setToken } = useContext(UserContext);
     const { categoryId } = useParams();
     const [categories, setCategories] = useState([]);
+    const [chats, setChats] = useState([]);
+    const [categoryName, setCategoryName] = useState('');
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
     
     useEffect(() => {
         if(!token) {
@@ -22,17 +31,21 @@ export default function ChatFeed() {
         }
 
         async function fetchCategories() {
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            };
             const response = await getCategories(config);
             setCategories(response);
         }
 
         fetchCategories();
-    }, [token]);
+
+        async function fetchChatrooms() {
+            const response = await getChatrooms(config, categoryId);
+            setCategoryName(response.name);
+            setChats(response.chatrooms);
+        }
+
+        fetchChatrooms();
+
+    }, [token, categoryId]);
 
     return (
         <Conteiner>
@@ -44,7 +57,7 @@ export default function ChatFeed() {
                     {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
                 </LeftSide>
                 <RightSide>
-                    <ChatMenu categoryId={categoryId} />
+                    <ChatMenu categoryId={categoryId} chats={chats} category={categoryName} />
                 </RightSide>
             </Content>
         </Conteiner>
