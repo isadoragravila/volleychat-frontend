@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
-import { IoClose } from "react-icons/io5"
+import { IoClose } from "react-icons/io5";
+import { createChat } from "../services/chats";
+import UserContext from "../context/UserContext";
 
-export default function CreateChat() {
+export default function CreateChat({ categoryId }) {
+    const { token } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [openCreate, setOpenCreate] = useState(false);
     const [title, setTitle] = useState('');
@@ -14,7 +17,24 @@ export default function CreateChat() {
         e.preventDefault();
         setLoading(true);
 
-        //logica aqui
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
+        const body = { title, description };
+
+        const response = await createChat(body, config, categoryId);
+
+        if (response === 201) {
+            setTitle('');
+            setDescription('');
+            setLoading(false);
+            setOpenCreate(false)
+        } else {
+            setLoading(false);
+        }
     }
 
     return (

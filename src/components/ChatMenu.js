@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CreateChat from "./CreateChat";
 import FeedCard from "./FeedCard";
 
-export default function ChatMenu() {
+export default function ChatMenu({ categoryId }) {
     const chats = [
         {
             id: 1,
@@ -21,7 +21,7 @@ export default function ChatMenu() {
     return (
         <Conteiner>
         <h4>women's volleyball</h4>
-            <CreateChat />
+            <CreateChat categoryId={categoryId} />
             {chats.length === 0 ? (
                 <Informative>
                     <p>There aren't any chats yet! Create the first one!</p>
