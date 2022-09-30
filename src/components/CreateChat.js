@@ -103,10 +103,10 @@ const TextArea = styled.textarea`
     outline: none;
     border-radius: 5px;
     font-family: "Poppins";
-    font-weight: 600;
+    font-weight: 400;
+    font-size: 16px;
     line-height: 20px;
-    font-size: 18px;
-    color: #142b73;
+    color: #000000;
     resize: none;
     ::placeholder {
         color: #142B73;
