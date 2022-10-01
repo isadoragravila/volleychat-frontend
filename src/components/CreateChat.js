@@ -7,6 +7,7 @@ import { createChat } from "../services/chats";
 import UserContext from "../context/UserContext";
 import { getChatrooms } from "../services/chats";
 import { useNavigate } from "react-router-dom";
+import { insertParticipants } from "../services/participants";
 
 export default function CreateChat({ categoryId, setChats }) {
     const navigate = useNavigate();
@@ -37,8 +38,10 @@ export default function CreateChat({ categoryId, setChats }) {
             setLoading(false);
             setOpenCreate(false);
             fetchChatrooms();
-            navigate(`/feed/${categoryId}/chat/${chatId}`);
-
+            const response2 = await insertParticipants(config, chatId);
+            if (response2 === 201) {
+                navigate(`/feed/${categoryId}/chat/${chatId}`);
+            }
         } else {
             setLoading(false);
         }
