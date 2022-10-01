@@ -1,10 +1,22 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { insertParticipants } from "../services/participants";
+import UserContext from "../context/UserContext";
 
-export default function FeedCard({ id, title, description, time, categoryId }) {
+export default function FeedCard({ chatId, title, description, time, categoryId }) {
+    const { token } = useContext(UserContext);
     const navigate = useNavigate();
-    function enterChatroom() {
-        navigate(`/feed/${categoryId}/chat/${id}`);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    async function enterChatroom() {
+        const response = await insertParticipants(config, chatId);
+        if (response === 201) {
+            navigate(`/feed/${categoryId}/chat/${chatId}`);
+        }
     }
     return (
         <Conteiner>
