@@ -6,8 +6,10 @@ import { IoClose } from "react-icons/io5";
 import { createChat } from "../services/chats";
 import UserContext from "../context/UserContext";
 import { getChatrooms } from "../services/chats";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateChat({ categoryId, setChats }) {
+    const navigate = useNavigate();
     const { token } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [openCreate, setOpenCreate] = useState(false);
@@ -28,12 +30,14 @@ export default function CreateChat({ categoryId, setChats }) {
 
         const response = await createChat(body, config, categoryId);
 
-        if (response === 201) {
+        if (response.status === 201) {
+            const chatId = response.data.id;
             setTitle('');
             setDescription('');
             setLoading(false);
             setOpenCreate(false);
             fetchChatrooms();
+            navigate(`/feed/${categoryId}/chat/${chatId}`);
 
         } else {
             setLoading(false);
