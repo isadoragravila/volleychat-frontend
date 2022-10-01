@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-export default function FeedCard({ id, title, description, time }) {
+export default function FeedCard({ id, title, description, time, categoryId }) {
+    const navigate = useNavigate();
+    function enterChatroom() {
+        navigate(`/feed/${categoryId}/chat/${id}`);
+    }
     return (
         <Conteiner>
             <UpSide>
@@ -9,7 +14,7 @@ export default function FeedCard({ id, title, description, time }) {
             </UpSide>
             <DownSide>
                 <Description>{description}</Description>
-                <Button>
+                <Button onClick={ enterChatroom }>
                     <p>Join</p>
                 </Button>
             </DownSide>

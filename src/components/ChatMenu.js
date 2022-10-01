@@ -12,7 +12,7 @@ export default function ChatMenu({ categoryId, chats, setChats, category }) {
                     <p>There aren't any chats yet! Create the first one!</p>
                 </Informative>
             ) : (
-                chats.map(chat => <FeedCard key={chat.id} id={chat.id} title={chat.title} description={chat.description} time={chat.fromNow} />)
+                chats.map(chat => <FeedCard key={chat.id} id={chat.id} title={chat.title} description={chat.description} time={chat.fromNow} categoryId={categoryId} />)
             )}
         </Conteiner>
     )

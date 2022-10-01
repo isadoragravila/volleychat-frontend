@@ -3,8 +3,11 @@ import Header from "../components/Header";
 import Participant from "../components/Participant";
 import WriteMessage from "../components/WriteMessage";
 import Message from "../components/Message";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Chatroom() {
+    const { categoryId } = useParams();
+    const navigate = useNavigate();
     const users = [
         {
             id: 1,
@@ -56,6 +59,7 @@ export default function Chatroom() {
                 <LeftSide>
                     <h3>Participants</h3>
                     {users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)}
+                    <h5 onClick={() => navigate(`/feed/${categoryId}`)}>Leave chatroom</h5>
                 </LeftSide>
                 <RightSide>
                     <MessageBoard>
@@ -89,6 +93,7 @@ const LeftSide = styled.div`
     flex-direction: column;
     align-items: center;
     height: 100vh;
+    position: relative;
     h3 {
         font-family: "Poppins";
         font-weight: 600;
@@ -97,6 +102,18 @@ const LeftSide = styled.div`
         color: #142b73;
         text-align: center;
         margin-bottom: 25px;
+    }
+    h5 {
+        font-family: "Poppins";
+        font-weight: 400;
+        font-size: 14px;
+        color: #142b73;
+        text-align: center;
+        margin-bottom: 17px;
+        cursor: pointer;
+        text-decoration: underline;
+        position: absolute;
+        bottom: 20px;
     }
     h6 {
         font-family: "Poppins";
