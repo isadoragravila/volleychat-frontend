@@ -5,7 +5,7 @@ import WriteMessage from "../components/WriteMessage";
 import Message from "../components/Message";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { getParticipants } from "../services/participants";
+import { getParticipants, removeParticipant } from "../services/participants";
 import UserContext from "../context/UserContext";
 
 export default function Chatroom() {
@@ -67,6 +67,13 @@ export default function Chatroom() {
         fetchParticipants();
     }, []);
 
+    async function getOutOfChat() {
+        const response = await removeParticipant(config, chatId);
+        if (response === 200) {
+            navigate(`/feed/${categoryId}`);
+        }
+    }
+
     return (
         <Conteiner>
             <Header />
@@ -74,7 +81,7 @@ export default function Chatroom() {
                 <LeftSide>
                     <h3>Participants</h3>
                     {users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)}
-                    <h5 onClick={() => navigate(`/feed/${categoryId}`)}>Leave chatroom</h5>
+                    <h5 onClick={getOutOfChat}>Leave chatroom</h5>
                 </LeftSide>
                 <RightSide>
                     <MessageBoard>
