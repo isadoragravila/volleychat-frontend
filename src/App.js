@@ -3,6 +3,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Feed from "./pages/Feed";
 import ChatFeed from "./pages/ChatFeed";
+import Chatroom from "./pages/Chatroom";
 import { useState } from "react";
 import UserContext from "./context/UserContext";
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/sign-up" element={<Register />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/feed/:categoryId" element={<ChatFeed />} />
+          <Route path="/feed/:categoryId/chat/:chatId" element={<Chatroom />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
