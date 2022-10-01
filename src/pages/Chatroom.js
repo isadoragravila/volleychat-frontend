@@ -4,20 +4,21 @@ import Participant from "../components/Participant";
 import WriteMessage from "../components/WriteMessage";
 import Message from "../components/Message";
 import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { getParticipants } from "../services/participants";
+import UserContext from "../context/UserContext";
 
 export default function Chatroom() {
-    const { categoryId } = useParams();
+    const { token } = useContext(UserContext);
+    const { categoryId, chatId } = useParams();
     const navigate = useNavigate();
-    const users = [
-        {
-            id: 1,
-            name: "isadoragravila"
+    const [users, setUsers] = useState([]);
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
         },
-        {
-            id: 2,
-            name: "bobesponja"
-        }
-    ];
+    };
 
     const messages = [
         {
@@ -51,6 +52,20 @@ export default function Chatroom() {
             justify: true
         }
     ]
+
+    useEffect(()=> {
+        if(!token) {
+            navigate(`/feed/${categoryId}`);
+            return
+        }
+
+        async function fetchParticipants() {
+            const response = await getParticipants(config, chatId);
+            setUsers(response);
+        }
+
+        fetchParticipants();
+    }, []);
 
     return (
         <Conteiner>
