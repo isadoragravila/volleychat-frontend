@@ -1,16 +1,10 @@
 import styled from "styled-components";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { useState, useContext } from "react";
-import Button from "../shared/Button";
-import { IoClose } from "react-icons/io5";
-import { createChat } from "../services/chats";
 import UserContext from "../context/UserContext";
-import { getChatrooms } from "../services/chats";
-import { useNavigate } from "react-router-dom";
-import { insertParticipants } from "../services/participants";
 import { createMessage } from "../services/messages";
 
-export default function WriteMessage({ chatId }) {
+export default function WriteMessage({ chatId, fetchMessages }) {
     const { token } = useContext(UserContext);
     const [content, setContent] = useState('');
     const [loading, setLoading] = useState(false);
@@ -31,7 +25,7 @@ export default function WriteMessage({ chatId }) {
         if(response && response.status === 201) {
             setContent("");
             setLoading(false);
-            //fetchMessages(config, chatId)
+            fetchMessages();
         } else {
             setLoading(false);
         }

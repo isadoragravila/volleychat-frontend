@@ -7,7 +7,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { getParticipants, removeParticipant } from "../services/participants";
 import UserContext from "../context/UserContext";
-import { getChatroomName } from "../services/chats";
+import useInterval from 'use-interval'
+import { getMessages } from "../services/messages";
 
 export default function Chatroom() {
     const { token } = useContext(UserContext);
@@ -15,6 +16,8 @@ export default function Chatroom() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [chatName, setChatName] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [userId, setUserId] = useState(0);
 
     const config = {
         headers: {
@@ -22,55 +25,33 @@ export default function Chatroom() {
         },
     };
 
-    const messages = [
-        {
-            name: "isadoragravila",
-            content: "uihaisuhduaisf iudsahduiaha",
-            justify: true
-        },
-        {
-            name: "bobesponja",
-            content: "uihaisuhduaisf iudsahduiaha",
-            justify: false
-        },
-        {
-            name: "isadoragravila",
-            content: "uihaisuhduaisf iudsahduiaha",
-            justify: true
-        },
-        {
-            name: "bobesponja",
-            content: "uihaisuhduaisf iudsahduiaha",
-            justify: false
-        },
-        {
-            name: "isadoragravila",
-            content: "uihaisuhduaisf iudsahduiaha",
-            justify: true
-        },
-        {
-            name: "isadoragravila",
-            content: "uihaisuhduaisf iudsahduiaha",
-            justify: true
-        }
-    ]
-
     useEffect(() => {
         if (!token) {
             navigate(`/feed/${categoryId}`);
             return
         }
 
-        async function fetchParticipants() {
-            const response = await getParticipants(config, chatId);
-            setUsers(response);
-
-            const chatname = await getChatroomName(config, chatId);
-            setChatName(chatname.name);
-        }
-
+        fetchMessages();
         fetchParticipants();
     }, []);
+
+
+    async function fetchParticipants() {
+        const response = await getParticipants(config, chatId);
+        setUsers(response);
+    }
+
+    async function fetchMessages() {
+        const response = await getMessages(config, chatId);
+        setChatName(response.title);
+        setMessages(response.messages);
+        setUserId(response.userId);
+    }
+
+    useInterval(() => {
+        fetchMessages();
+        fetchParticipants();
+    }, 7000);
 
     async function getOutOfChat() {
         const response = await removeParticipant(config, chatId);
@@ -91,10 +72,10 @@ export default function Chatroom() {
                 </LeftSide>
                 <RightSide>
                     <MessageBoard>
-                        {messages.map(item => <Message name={item.name} content={item.content} justified={item.justify} />)}
+                        {messages.map(item => <Message name={item.user.username} content={item.content} writerId={item.userId} userId={userId} />)}
                         <Margin></Margin>
                     </MessageBoard>
-                    <WriteMessage chatId={chatId} />
+                    <WriteMessage chatId={chatId} fetchMessages={fetchMessages}/>
                 </RightSide>
             </Content>
         </Conteiner>

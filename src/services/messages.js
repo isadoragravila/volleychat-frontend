@@ -10,3 +10,13 @@ export async function createMessage(body, config, params) {
             alert(err.response.data);
         });
 }
+
+export async function getMessages(config, params) {
+    return axios.get(urlAPI(`messages/${params}`), config)
+        .then((res) => {
+            return res.data;
+        })
+        .catch((err) => {
+            alert(err.response.data);
+        });
+}

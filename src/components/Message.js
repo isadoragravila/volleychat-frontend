@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export default function Message({ name, content, justified }) {
+export default function Message({ name, content, writerId, userId }) {
     return (
-        <Conteiner justified={justified}>
-            <Content justified={justified}>
+        <Conteiner writerId={writerId} userId={userId}>
+            <Content writerId={writerId} userId={userId}>
                 <User>{name}</User>
                 <Text>{content}</Text>
             </Content>
@@ -15,13 +15,13 @@ const Conteiner = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: ${props => props.justified ? "flex-end" : "flex-start" };
+    justify-content: ${props => props.writerId === props.userId ? "flex-end" : "flex-start" };
 `;
 
 const Content = styled.div`
     width: 50%;
     min-height: 50px;
-    background-color: ${props => props.justified ? "rgba(242, 194, 48, 0.3)" : "rgba(20, 43, 115, 0.3)" };
+    background-color: ${props => props.writerId === props.userId ? "rgba(242, 194, 48, 0.3)" : "rgba(20, 43, 115, 0.3)" };
     border-radius: 8px;
     display: flex;
     flex-direction: column;
