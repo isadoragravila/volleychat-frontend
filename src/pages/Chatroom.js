@@ -7,12 +7,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { getParticipants, removeParticipant } from "../services/participants";
 import UserContext from "../context/UserContext";
+import { getChatroomName } from "../services/chats";
 
 export default function Chatroom() {
     const { token } = useContext(UserContext);
     const { categoryId, chatId } = useParams();
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
+    const [chatName, setChatName] = useState('');
 
     const config = {
         headers: {
@@ -53,8 +55,8 @@ export default function Chatroom() {
         }
     ]
 
-    useEffect(()=> {
-        if(!token) {
+    useEffect(() => {
+        if (!token) {
             navigate(`/feed/${categoryId}`);
             return
         }
@@ -62,6 +64,9 @@ export default function Chatroom() {
         async function fetchParticipants() {
             const response = await getParticipants(config, chatId);
             setUsers(response);
+
+            const chatname = await getChatroomName(config, chatId);
+            setChatName(chatname.name);
         }
 
         fetchParticipants();
@@ -79,6 +84,7 @@ export default function Chatroom() {
             <Header />
             <Content>
                 <LeftSide>
+                    <h2>{chatName}</h2>
                     <h3>Participants</h3>
                     {users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)}
                     <h5 onClick={getOutOfChat}>Leave chatroom</h5>
@@ -110,12 +116,21 @@ const LeftSide = styled.div`
     background-color: #e2e2e2;
     width: 275px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 102px 30px 30px 30px;
+    padding: 102px 25px 30px 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100vh;
     position: relative;
+    h2 {
+        font-family: "Poppins";
+        font-weight: 700;
+        line-height: 28px;
+        font-size: 22px;
+        color: #142b73;
+        text-align: center;
+        margin-bottom: 20px;
+    }
     h3 {
         font-family: "Poppins";
         font-weight: 600;
@@ -123,7 +138,7 @@ const LeftSide = styled.div`
         font-size: 20px;
         color: #142b73;
         text-align: center;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
     h5 {
         font-family: "Poppins";
