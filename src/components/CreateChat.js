@@ -31,7 +31,7 @@ export default function CreateChat({ categoryId, setChats }) {
 
         const response = await createChat(body, config, categoryId);
 
-        if (response.status === 201) {
+        if (response && response.status === 201) {
             const chatId = response.data.id;
             setTitle('');
             setDescription('');

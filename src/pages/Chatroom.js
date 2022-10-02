@@ -94,7 +94,7 @@ export default function Chatroom() {
                         {messages.map(item => <Message name={item.name} content={item.content} justified={item.justify} />)}
                         <Margin></Margin>
                     </MessageBoard>
-                    <WriteMessage />
+                    <WriteMessage chatId={chatId} />
                 </RightSide>
             </Content>
         </Conteiner>
