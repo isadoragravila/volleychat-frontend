@@ -25,12 +25,18 @@ const Informative = styled.div`
     height: 100%;
     p {
         font-family: "Poppins";
-        font-weight: 600;
+        font-weight: 400;
         line-height: 24px;
         font-size: 20px;
         color: #142b73;
         text-align: center;
         width: 300px;
+    }
+    @media (max-width: 611px) {
+        p {
+            font-size: 18px;
+            max-width: 300px;
+        }
     }
 `
 

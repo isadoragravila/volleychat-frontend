@@ -119,13 +119,16 @@ const TextArea = styled.textarea`
     border-radius: 5px;
     font-family: "Poppins";
     font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 18px;
+    line-height: 24px;
     color: #000000;
     resize: none;
     ::placeholder {
         color: #142B73;
         font-weight: 300;
+    }
+    @media (max-width: 611px) {
+        font-size: 16px;
     }
 `;
 

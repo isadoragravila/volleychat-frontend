@@ -64,6 +64,9 @@ const Title = styled.div`
     font-weight: 700;
     font-size: 20px;
     color: #142B73;
+    @media (max-width: 611px) {
+        font-size: 18px;
+    }
 `
 const Description = styled.div`
     font-family: 'Poppins';
@@ -72,6 +75,10 @@ const Description = styled.div`
     line-height: 20px;
     color: #000000;
     width: 70%;
+    @media (max-width: 611px) {
+        font-size: 14px;
+        line-height: 16px;
+    }
 
 `
 const Time = styled.div`
@@ -80,6 +87,9 @@ const Time = styled.div`
     font-size: 14px;
     display: flex;
     color: #6A6A6A;
+    @media (max-width: 611px) {
+        font-size: 12px;
+    }
 `
 const Button = styled.div`
     width: 96px;
@@ -96,5 +106,12 @@ const Button = styled.div`
         font-weight: 700;
         font-size: 14px;
         color: #142B73;
+    }
+    @media (max-width: 611px) {
+        width: 80px;
+        height: 27px;
+        p {
+            font-size: 12px;
+        }
     }
 `

@@ -25,7 +25,13 @@ const Conteiner = styled.div`
         font-size: 25px;
         color: #142b73;
     }
-`
+    @media (max-width: 611px) {
+        h4 {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+    }
+`;
 
 const Informative = styled.div`
     display: flex;
@@ -43,4 +49,10 @@ const Informative = styled.div`
         text-align: center;
         width: 300px;
     }
-`
+    @media (max-width: 611px) {
+        p {
+            font-size: 18px;
+            max-width: 300px;
+        }
+    }
+`;

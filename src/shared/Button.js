@@ -25,6 +25,6 @@ const ButtonStyle = styled.button`
     opacity: ${props => props.disabled ? 0.8 : 1 };
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     @media (max-width: 611px) {
-        font-size: ${props => props.id !== "create" ? "19px" : "15px" };
+        font-size: ${props => props.id !== "create" ? "17px" : "15px" };
     }
 `

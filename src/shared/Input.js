@@ -32,6 +32,7 @@ const InputStyle = styled.input`
         font-weight: 300;
     }
     @media (max-width: 611px) {
-        font-size: ${props => props.id !== "create" ? "20px" : "15px" };
+        height: ${props => props.id !== "title" ? "45px" : "30px" };
+        font-size: ${props => props.id !== "title" ? "20px" : "16px" };
     }
 `;
