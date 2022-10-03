@@ -17,7 +17,7 @@ export default function Header() {
     }
     return(
         <Conteiner>
-            <Logo>
+            <Logo onClick={() => navigate("/feed")}>
                 <Volleyball />
                 <Title>
                 <p>Volley</p>
@@ -57,6 +57,7 @@ const Logo = styled.div`
     font-size: 40px;
     color: #f2c230;
     align-items: center;
+    cursor: pointer;
         
     @media (max-width: 611px) {
         font-size: 20px;
