@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { FaVolleyballBall } from 'react-icons/fa';
 
 export default function Header() {
     const { setToken } = useContext(UserContext);
@@ -16,7 +17,13 @@ export default function Header() {
     }
     return(
         <Conteiner>
-            <Logo>VolleyChat</Logo>
+            <Logo>
+                <Volleyball />
+                <Title>
+                <p>Volley</p>
+                <p>Chat</p>
+                </Title>
+            </Logo>
             <Menu>
                 <p>Edit profile</p>
                 <p onClick={logout}>Logout</p>
@@ -38,14 +45,32 @@ const Conteiner = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
+  @media (max-width: 611px) {
+    padding: 0 20px;
+    }
 `;
 
 const Logo = styled.div`
+    display: flex;
     font-family: "Poppins";
     font-weight: 700;
     font-size: 40px;
     color: #f2c230;
-`
+    align-items: center;
+        
+    @media (max-width: 611px) {
+        font-size: 20px;
+        line-height: 22px;
+    }
+`;
+const Title = styled.div`
+    display: flex;
+    @media (max-width: 611px) {
+        flex-direction: column;
+        align-items: center;
+    }
+
+`;
 
 const Menu = styled.div`
     display: flex;
@@ -65,4 +90,17 @@ const Menu = styled.div`
         object-fit: cover;
         border-radius: 22.5px;
     }
-`
+    @media (max-width: 611px) {
+        p {
+            font-size: 13px;
+            margin-right: 15px;
+        }
+    }
+`;
+
+const Volleyball = styled(FaVolleyballBall)`
+    width: 40px;
+    height: 40px;
+    color: #F2C230;
+    margin-right: 10px;
+`;
