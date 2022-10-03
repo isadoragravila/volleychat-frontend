@@ -31,4 +31,7 @@ const InputStyle = styled.input`
         color: #142B73;
         font-weight: 300;
     }
-`
+    @media (max-width: 611px) {
+        font-size: ${props => props.id !== "create" ? "20px" : "15px" };
+    }
+`;

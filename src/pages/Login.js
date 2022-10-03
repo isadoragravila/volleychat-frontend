@@ -56,6 +56,12 @@ const Subtitle = styled.div`
         font-family: 'Poppins';
         color: #F2C230;
     }
+    @media (max-width: 611px) {
+        width: 100%;
+        p {
+            font-size: 30px;
+        }
+    }
 `
 
 const Register = styled.p`
@@ -65,4 +71,8 @@ const Register = styled.p`
     font-family: 'Poppins';
     margin-top: 40px;
     margin-bottom: 20px;
+    
+    @media (max-width: 611px) {
+        font-size: 14px;
+    }
 `

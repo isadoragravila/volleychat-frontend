@@ -47,4 +47,7 @@ const Login = styled.p`
     font-family: 'Poppins';
     margin-top: 40px;
     margin-bottom: 20px;
+    @media (max-width: 611px) {
+        font-size: 14px;
+    }
 `

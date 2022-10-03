@@ -47,4 +47,7 @@ const Form = styled.form`
     flex-direction: column;
     align-items: center;
     width: 600px;
+    @media (max-width: 611px) {
+        width: 100%;
+    }
 `;
