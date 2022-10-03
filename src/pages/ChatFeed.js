@@ -8,6 +8,7 @@ import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import { getChatrooms } from "../services/chats";
+import useInterval from "use-interval";
 
 export default function ChatFeed() {
     const navigate = useNavigate();
@@ -22,30 +23,32 @@ export default function ChatFeed() {
             Authorization: `Bearer ${token}`,
         },
     };
+
+    async function fetchCategories() {
+        const response = await getCategories(config);
+        setCategories(response);
+    }
     
+    async function fetchChatrooms() {
+        const response = await getChatrooms(config, categoryId);
+        setCategoryName(response.name);
+        setChats(response.chatrooms);
+    }
+
     useEffect(() => {
         if(!token) {
             const page = (`feed/${categoryId}`);
             checkToken(navigate, setToken, page);
             return
         }
-
-        async function fetchCategories() {
-            const response = await getCategories(config);
-            setCategories(response);
-        }
-
         fetchCategories();
-
-        async function fetchChatrooms() {
-            const response = await getChatrooms(config, categoryId);
-            setCategoryName(response.name);
-            setChats(response.chatrooms);
-        }
-
         fetchChatrooms();
 
     }, [token, categoryId]);
+
+    useInterval(() => {
+        fetchChatrooms();
+    }, 5000);
 
     return (
         <Conteiner>
