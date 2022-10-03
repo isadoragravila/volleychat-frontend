@@ -33,3 +33,14 @@ export async function removeParticipant(config, params) {
             alert(err.response.data);
         });
 }
+
+export async function updateStatus(config, params) {
+    return axios
+    .patch(urlAPI(`participants/${params}/status`), null, config)
+    .then((res) => {
+        return res.status;
+    })
+    .catch((err) => {
+        alert(err.response.data);
+    });
+}

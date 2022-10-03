@@ -5,7 +5,7 @@ import WriteMessage from "../components/WriteMessage";
 import Message from "../components/Message";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { getParticipants, removeParticipant } from "../services/participants";
+import { getParticipants, removeParticipant, updateStatus } from "../services/participants";
 import UserContext from "../context/UserContext";
 import useInterval from 'use-interval'
 import { getMessages } from "../services/messages";
@@ -48,10 +48,15 @@ export default function Chatroom() {
         setUserId(response.userId);
     }
 
+    async function sendStatus() {
+        await updateStatus(config, chatId);
+    }
+
     useInterval(() => {
         fetchMessages();
         fetchParticipants();
-    }, 7000);
+        sendStatus();
+    }, 3000);
 
     async function getOutOfChat() {
         const response = await removeParticipant(config, chatId);
