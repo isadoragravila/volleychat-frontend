@@ -38,8 +38,12 @@ export default function Feed() {
             <Header />
             <Content>
                 <LeftSide>
-                    <h3>Choose your chat category</h3>
-                    {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
+                    <UpSide>
+                        <h3>Choose your chat category</h3>
+                    </UpSide>
+                    <DownSide>
+                        {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
+                    </DownSide>
                 </LeftSide>
                 <RightSide>
                     <Timeline />
@@ -59,6 +63,13 @@ const Content = styled.div`
     padding-top: 130px;
     align-items: flex-start;
     justify-content: center;
+
+    @media (max-width: 611px) {
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 100px;
+    }
 `;
 
 const LeftSide = styled.div`
@@ -79,8 +90,35 @@ const LeftSide = styled.div`
         text-align: center;
         margin-bottom: 48px;
     }
+    @media (max-width: 611px) {
+        width: 100%;
+        margin-right: 0;
+        padding: 10px 30px;
+        h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+    }
+`;
+
+const UpSide = styled.div`
+    @media (max-width: 611px) {
+        display: flex;
+    }
+`;
+
+const DownSide = styled.div`
+    @media (max-width: 611px) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 `;
 
 const RightSide = styled.div`
     width: 480px;
+    @media (max-width: 611px) {
+        width: 100%;
+        margin-top: 20px;
+    }
 `;

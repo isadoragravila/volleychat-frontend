@@ -28,7 +28,7 @@ export default function ChatFeed() {
         const response = await getCategories(config);
         setCategories(response);
     }
-    
+
     async function fetchChatrooms() {
         const response = await getChatrooms(config, categoryId);
         setCategoryName(response.name);
@@ -36,7 +36,7 @@ export default function ChatFeed() {
     }
 
     useEffect(() => {
-        if(!token) {
+        if (!token) {
             const page = (`feed/${categoryId}`);
             checkToken(navigate, setToken, page);
             return
@@ -55,9 +55,13 @@ export default function ChatFeed() {
             <Header />
             <Content>
                 <LeftSide>
-                    <h3>Choose your chat category</h3>
-                    <h6 onClick={() => navigate("/feed")}>Return to timeline</h6>
-                    {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
+                    <UpSide>
+                        <h3>Choose your chat category</h3>
+                        <h6 onClick={() => navigate("/feed")}>Return to timeline</h6>
+                    </UpSide>
+                    <DownSide>
+                        {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
+                    </DownSide>
                 </LeftSide>
                 <RightSide>
                     <ChatMenu categoryId={categoryId} chats={chats} setChats={setChats} category={categoryName} />
@@ -77,6 +81,13 @@ const Content = styled.div`
     padding-top: 130px;
     align-items: flex-start;
     justify-content: center;
+
+    @media (max-width: 611px) {
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 100px;
+    }
 `;
 
 const LeftSide = styled.div`
@@ -107,8 +118,52 @@ const LeftSide = styled.div`
         cursor: pointer;
         text-decoration: underline;
     }
+    @media (max-width: 611px) {
+        width: 100%;
+        margin-right: 0;
+        padding: 10px 30px;
+        h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 20px;
+        }
+        h6 {
+            font-size: 12px;
+            line-height: 14px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        h3 {
+            max-width: 180px;
+        }
+        h6 {
+            max-width: 90px;
+        }
+    }
+`;
+
+const UpSide = styled.div`
+    width: 100%;
+    @media (max-width: 611px) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+`;
+
+const DownSide = styled.div`
+    @media (max-width: 611px) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 `;
 
 const RightSide = styled.div`
     width: 480px;
+    @media (max-width: 611px) {
+        width: 100%;
+        margin-top: 20px;
+    }
 `;

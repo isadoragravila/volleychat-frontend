@@ -33,12 +33,25 @@ const Button = styled.div`
         text-align: center;
         width: 100%;
     }
+    @media (max-width: 611px) {
+        width: 150px;
+        height: 30px;
+        margin-bottom: 15px;
+        p {
+            font-size: 12px;
+            line-height: 14px;
+        }
+    }
 `;
 
 const Arrow = styled(RiArrowRightSLine)`
   width: 30px;
   height: 30px;
   color: #142b73;
+  @media (max-width: 611px) {
+        width: 15px;
+        height: 15px;
+    }
 `;
 
 const ArrowDown = styled(RiArrowDownSLine)`
