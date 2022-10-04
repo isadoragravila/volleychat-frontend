@@ -9,6 +9,8 @@ import { getParticipants, removeParticipant, updateStatus } from "../services/pa
 import UserContext from "../context/UserContext";
 import useInterval from 'use-interval'
 import { getMessages } from "../services/messages";
+import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
+import { IoClose } from "react-icons/io5";
 
 export default function Chatroom() {
     const { token } = useContext(UserContext);
@@ -18,6 +20,7 @@ export default function Chatroom() {
     const [chatName, setChatName] = useState('');
     const [messages, setMessages] = useState([]);
     const [userId, setUserId] = useState(0);
+    const [openParticipants, setOpenParticipants] = useState(false);
 
     const config = {
         headers: {
@@ -72,15 +75,34 @@ export default function Chatroom() {
                 <LeftSide>
                     <h2>{chatName}</h2>
                     <h3>Participants</h3>
-                    {users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)}
+                    <Downside>
+                        {users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)}
+                    </Downside>
                     <h5 onClick={getOutOfChat}>Leave chatroom</h5>
                 </LeftSide>
+                <MenuMobile>
+                    <Upside>
+                        <h3 onClick={() => setOpenParticipants(!openParticipants)}>
+                            Participants
+                            {openParticipants ? <ArrowUp /> : <ArrowDown />}
+                        </h3>
+                        <h2>{chatName}</h2>
+                        <Close onClick={getOutOfChat} />
+                    </Upside>
+                    <Downside>
+                        {openParticipants ? (
+                            users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)
+                        ) : (
+                            null
+                        )}
+                    </Downside>
+                </MenuMobile>
                 <RightSide>
                     <MessageBoard>
                         {messages.map(item => <Message name={item.user.username} content={item.content} writerId={item.userId} userId={userId} />)}
                         <Margin></Margin>
                     </MessageBoard>
-                    <WriteMessage chatId={chatId} fetchMessages={fetchMessages}/>
+                    <WriteMessage chatId={chatId} fetchMessages={fetchMessages} />
                 </RightSide>
             </Content>
         </Conteiner>
@@ -98,18 +120,85 @@ const Content = styled.div`
     justify-content: center;
 `;
 
+const MenuMobile = styled.div`
+    width: 100%;
+    min-height: 42px;
+    background-color: #e2e2e2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    top: 72px;
+    z-index: 1;
+    display: none;
+    padding: 10px 15px;
+    font-family: "Poppins";
+    h2 {
+        font-weight: 700;
+        line-height: 22px;
+        font-size: 18px;
+        color: #142b73;
+        text-align: center;
+        max-width: 180px;
+    }
+    h3 {
+        font-weight: 600;
+        line-height: 20px;
+        font-size: 16px;
+        color: #142b73;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    h6 {
+        font-weight: 400;
+        font-size: 14px;
+        color: #000000;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    @media (max-width: 611px) {
+        display: flex;
+        flex-direction: column;
+    }
+`;
+
+const Upside = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+`;
+const Downside = styled.div`
+    width: 100%;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        background: none;
+        width: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+    background: #c3c3c3; 
+    border-radius: 10px;
+    }
+    @media (max-width: 611px) {
+        max-height: 25vh;
+    }
+    
+`
+
 const LeftSide = styled.div`
     background-color: #e2e2e2;
     width: 275px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 102px 25px 30px 25px;
+    padding: 102px 20px 30px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 100vh;
     position: relative;
+    font-family: "Poppins";
     h2 {
-        font-family: "Poppins";
         font-weight: 700;
         line-height: 28px;
         font-size: 22px;
@@ -118,7 +207,6 @@ const LeftSide = styled.div`
         margin-bottom: 20px;
     }
     h3 {
-        font-family: "Poppins";
         font-weight: 600;
         line-height: 28px;
         font-size: 20px;
@@ -127,19 +215,20 @@ const LeftSide = styled.div`
         margin-bottom: 20px;
     }
     h5 {
-        font-family: "Poppins";
         font-weight: 400;
         font-size: 14px;
         color: #142b73;
         text-align: center;
-        margin-bottom: 17px;
+        background-color: #e2e2e2;
+        padding-bottom: 37px;
+        padding-top: 10px;
+        width: 100%;
         cursor: pointer;
         text-decoration: underline;
         position: absolute;
-        bottom: 20px;
+        bottom: 0;
     }
     h6 {
-        font-family: "Poppins";
         font-weight: 400;
         font-size: 18px;
         color: #000000;
@@ -171,7 +260,11 @@ const MessageBoard = styled.div`
 
     ::-webkit-scrollbar {
         background: none;
-        width: 4px;
+        width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #c3c3c3; 
+        border-radius: 10px;
     }
     @media (max-width: 611px) {
         padding-bottom: 60px;
@@ -181,4 +274,23 @@ const MessageBoard = styled.div`
 const Margin = styled.div`
     min-height: 72px;
     width: 100%;
+`;
+
+const ArrowDown = styled(RiArrowDownSLine)`
+  width: 20px;
+  height: 20px;
+  color: #142b73;
+`;
+
+const ArrowUp = styled(RiArrowUpSLine)`
+  width: 20px;
+  height: 20px;
+  color: #142b73;
+`;
+
+const Close = styled(IoClose)`
+  width: 20px;
+  height: 20px;
+  color: #142b73;
+  cursor: pointer;
 `;

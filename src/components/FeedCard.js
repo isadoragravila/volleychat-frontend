@@ -86,6 +86,7 @@ const Time = styled.div`
     font-weight: 400;
     font-size: 14px;
     display: flex;
+    text-align: center;
     color: #6A6A6A;
     @media (max-width: 611px) {
         font-size: 12px;
