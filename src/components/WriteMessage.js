@@ -60,6 +60,10 @@ const Conteiner = styled.form`
         border: none;
         align-items: center;
         justify-content: center;
+        background-color: #ffffff;
+    }
+    @media (max-width: 611px) {
+        height: 45px;
     }
 `;
 
@@ -68,6 +72,10 @@ const Send = styled(RiSendPlaneFill)`
     height: 25px;
     color: #000000;
     cursor: pointer;
+    @media (max-width: 611px) {
+        width: 20px;
+        height: 20px;
+    }
 `;
 
 const Input = styled.input`
@@ -79,4 +87,7 @@ const Input = styled.input`
     outline: none;
     text-indent: 10px;
     color: #000000;
+    @media (max-width: 611px) {
+        font-size: 16px;
+    }
 `;

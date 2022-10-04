@@ -36,6 +36,9 @@ const User = styled.div`
     font-size: 16px;
     line-height: 18px;
     color: #142B73;
+    @media (max-width: 611px) {
+        font-size: 14px;
+    }
 `;
 
 const Text = styled.div`
@@ -45,4 +48,7 @@ const Text = styled.div`
     line-height: 16px;
     color: #000000;
     word-wrap: break-word;
+    @media (max-width: 611px) {
+        font-size: 12px;
+    }
 `;

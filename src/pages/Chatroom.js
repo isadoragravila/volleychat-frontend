@@ -146,6 +146,9 @@ const LeftSide = styled.div`
         text-align: center;
         cursor: pointer;
     }
+    @media (max-width: 611px) {
+        display: none;
+    }
 `;
 
 const RightSide = styled.div`
@@ -154,6 +157,9 @@ const RightSide = styled.div`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: relative;
     height: 100vh;
+    @media (max-width: 611px) {
+        width: 100%;
+    }
 `;
 
 const MessageBoard = styled.div`
@@ -163,10 +169,13 @@ const MessageBoard = styled.div`
     padding-bottom: 70px;
     overflow-y: auto;
 
-::-webkit-scrollbar {
-  background: none;
-  width: 4px;
-}
+    ::-webkit-scrollbar {
+        background: none;
+        width: 4px;
+    }
+    @media (max-width: 611px) {
+        padding-bottom: 60px;
+    }
 `;
 
 const Margin = styled.div`
