@@ -5,7 +5,7 @@ import FeedCard from "./FeedCard";
 export default function ChatMenu({ categoryId, chats, setChats, category }) {
 	return (
 		<Conteiner>
-			<h4>{category}</h4>
+			<h4 data-cy="categoryTitle">{category}</h4>
 			<CreateChat setChats={setChats} categoryId={categoryId} />
 			{chats.length === 0 ? (
 				<Informative>

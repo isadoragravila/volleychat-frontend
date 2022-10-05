@@ -6,7 +6,7 @@ export default function MenuButton({ name, id }) {
 	const navigate = useNavigate();
 
 	return (
-		<Button onClick={() => navigate(`/feed/${id}`)} >
+		<Button data-cy="category" onClick={() => navigate(`/feed/${id}`)} >
 			<p>{name}</p><Arrow />
 		</Button>
 	);

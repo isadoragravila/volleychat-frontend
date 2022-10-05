@@ -14,6 +14,18 @@ Cypress.Commands.add("createUser", (URL_BACK, user) => {
 
 	cy.request("POST", `${URL_BACK}/sign-up`, user);
 });
+
+Cypress.Commands.add("createUserAndLogin", (URL_BACK, user) => {
+	cy.request("POST", `${URL_BACK}/sign-up`, user).then(() => {
+		cy.request("POST", `${URL_BACK}/sign-in`, {
+			username: user.username,
+			password: user.password
+		}).then(res => {
+			window.localStorage.setItem("token", res.body.token);
+		});
+	});
+});
+
 //
 //
 // -- This is a child command --

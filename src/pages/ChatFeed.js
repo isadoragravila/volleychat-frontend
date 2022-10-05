@@ -57,7 +57,7 @@ export default function ChatFeed() {
 				<LeftSide>
 					<UpSide>
 						<h3>Choose your chat category</h3>
-						<h6 onClick={() => navigate("/feed")}>Return to timeline</h6>
+						<h6 data-cy="return" onClick={() => navigate("/feed")}>Return to timeline</h6>
 					</UpSide>
 					<DownSide>
 						{categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
