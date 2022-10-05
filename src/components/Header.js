@@ -2,35 +2,35 @@ import styled from "styled-components";
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { FaVolleyballBall } from 'react-icons/fa';
+import { FaVolleyballBall } from "react-icons/fa";
 
 export default function Header() {
-    const { setToken } = useContext(UserContext);
-    const navigate = useNavigate();
-    const imageProfile = localStorage.getItem("image");
+	const { setToken } = useContext(UserContext);
+	const navigate = useNavigate();
+	const imageProfile = localStorage.getItem("image");
 
-    function logout() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("image");
-        setToken("");
-        navigate("/");
-    }
-    return(
-        <Conteiner>
-            <Logo onClick={() => navigate("/feed")}>
-                <Volleyball />
-                <Title>
-                <p>Volley</p>
-                <p>Chat</p>
-                </Title>
-            </Logo>
-            <Menu>
-                <p>Edit profile</p>
-                <p onClick={logout}>Logout</p>
-                <img src={imageProfile} alt="user" />
-            </Menu>
-        </Conteiner>
-    )
+	function logout() {
+		localStorage.removeItem("token");
+		localStorage.removeItem("image");
+		setToken("");
+		navigate("/");
+	}
+	return(
+		<Conteiner>
+			<Logo onClick={() => navigate("/feed")}>
+				<Volleyball />
+				<Title>
+					<p>Volley</p>
+					<p>Chat</p>
+				</Title>
+			</Logo>
+			<Menu>
+				<p>Edit profile</p>
+				<p onClick={logout}>Logout</p>
+				<img src={imageProfile} alt="user" />
+			</Menu>
+		</Conteiner>
+	);
 }
 
 const Conteiner = styled.div`

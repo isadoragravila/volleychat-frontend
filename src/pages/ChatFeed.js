@@ -11,64 +11,64 @@ import { getChatrooms } from "../services/chats";
 import useInterval from "use-interval";
 
 export default function ChatFeed() {
-    const navigate = useNavigate();
-    const { token, setToken } = useContext(UserContext);
-    const { categoryId } = useParams();
-    const [categories, setCategories] = useState([]);
-    const [chats, setChats] = useState([]);
-    const [categoryName, setCategoryName] = useState('');
+	const navigate = useNavigate();
+	const { token, setToken } = useContext(UserContext);
+	const { categoryId } = useParams();
+	const [categories, setCategories] = useState([]);
+	const [chats, setChats] = useState([]);
+	const [categoryName, setCategoryName] = useState("");
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
 
-    async function fetchCategories() {
-        const response = await getCategories(config);
-        setCategories(response);
-    }
+	async function fetchCategories() {
+		const response = await getCategories(config);
+		setCategories(response);
+	}
 
-    async function fetchChatrooms() {
-        const response = await getChatrooms(config, categoryId);
-        setCategoryName(response.name);
-        setChats(response.chatrooms);
-    }
+	async function fetchChatrooms() {
+		const response = await getChatrooms(config, categoryId);
+		setCategoryName(response.name);
+		setChats(response.chatrooms);
+	}
 
-    useEffect(() => {
-        if (!token) {
-            const page = (`feed/${categoryId}`);
-            checkToken(navigate, setToken, page);
-            return
-        }
-        fetchCategories();
-        fetchChatrooms();
+	useEffect(() => {
+		if (!token) {
+			const page = (`feed/${categoryId}`);
+			checkToken(navigate, setToken, page);
+			return;
+		}
+		fetchCategories();
+		fetchChatrooms();
 
-    }, [token, categoryId]);
+	}, [token, categoryId]);
 
-    useInterval(() => {
-        fetchChatrooms();
-    }, 5000);
+	useInterval(() => {
+		fetchChatrooms();
+	}, 5000);
 
-    return (
-        <Conteiner>
-            <Header />
-            <Content>
-                <LeftSide>
-                    <UpSide>
-                        <h3>Choose your chat category</h3>
-                        <h6 onClick={() => navigate("/feed")}>Return to timeline</h6>
-                    </UpSide>
-                    <DownSide>
-                        {categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
-                    </DownSide>
-                </LeftSide>
-                <RightSide>
-                    <ChatMenu categoryId={categoryId} chats={chats} setChats={setChats} category={categoryName} />
-                </RightSide>
-            </Content>
-        </Conteiner>
-    )
+	return (
+		<Conteiner>
+			<Header />
+			<Content>
+				<LeftSide>
+					<UpSide>
+						<h3>Choose your chat category</h3>
+						<h6 onClick={() => navigate("/feed")}>Return to timeline</h6>
+					</UpSide>
+					<DownSide>
+						{categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
+					</DownSide>
+				</LeftSide>
+				<RightSide>
+					<ChatMenu categoryId={categoryId} chats={chats} setChats={setChats} category={categoryName} />
+				</RightSide>
+			</Content>
+		</Conteiner>
+	);
 }
 
 const Conteiner = styled.div`

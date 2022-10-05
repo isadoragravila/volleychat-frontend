@@ -1,20 +1,19 @@
 import styled from "styled-components";
-import FeedCard from "./FeedCard";
 
 export default function Timeline() {
-    const posts = [];
+	const posts = [];
 
-    return (
-        <>
-            {posts.length === 0 ? (
-                <Informative>
-                    <p>There aren't any post yet! Create a chat room or join one!</p>
-                </Informative>
-            ) : (
-                "tchau"
-            )}
-        </>
-    )
+	return (
+		<>
+			{posts.length === 0 ? (
+				<Informative>
+					<p>There are no any post yet! Create a chat room or join one!</p>
+				</Informative>
+			) : (
+				"tchau"
+			)}
+		</>
+	);
 }
 
 const Informative = styled.div`
@@ -38,5 +37,5 @@ const Informative = styled.div`
             max-width: 300px;
         }
     }
-`
+`;
 

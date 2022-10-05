@@ -5,44 +5,44 @@ import UserContext from "../context/UserContext";
 import { createMessage } from "../services/messages";
 
 export default function WriteMessage({ chatId, fetchMessages }) {
-    const { token } = useContext(UserContext);
-    const [content, setContent] = useState('');
-    const [loading, setLoading] = useState(false);
+	const { token } = useContext(UserContext);
+	const [content, setContent] = useState("");
+	const [loading, setLoading] = useState(false);
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
 
-    async function sendMessage(e) {
-        e.preventDefault();
-        const body = { content };
-        setLoading(true);
+	async function sendMessage(e) {
+		e.preventDefault();
+		const body = { content };
+		setLoading(true);
 
-        const response = await createMessage(body, config, chatId);
+		const response = await createMessage(body, config, chatId);
 
-        if(response && response.status === 201) {
-            setContent("");
-            setLoading(false);
-            fetchMessages();
-        } else {
-            setLoading(false);
-        }
-    }
+		if(response && response.status === 201) {
+			setContent("");
+			setLoading(false);
+			fetchMessages();
+		} else {
+			setLoading(false);
+		}
+	}
 
-    return (
-        <Conteiner onSubmit={sendMessage}>
-            <Input
-                type="text"
-                placeholder="Write your message..."
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
+	return (
+		<Conteiner onSubmit={sendMessage}>
+			<Input
+				type="text"
+				placeholder="Write your message..."
+				value={content}
+				onChange={(e) => setContent(e.target.value)}
                 
-            />
-            <button type="submit"><Send /></button>
-        </Conteiner>
-    )
+			/>
+			<button disabled={loading} type="submit"><Send /></button>
+		</Conteiner>
+	);
 }
 
 const Conteiner = styled.form`

@@ -8,38 +8,38 @@ import { useNavigate } from "react-router-dom";
 import { checkToken } from "../utils/validateToken";
 
 export default function RegisterForm() {
-    const { setToken } = useContext(UserContext);
-    const [loading, setLoading] = useState(false);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+	const { setToken } = useContext(UserContext);
+	const [loading, setLoading] = useState(false);
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
-    async function login(e) {
-        e.preventDefault();
-        setLoading(true);
+	async function login(e) {
+		e.preventDefault();
+		setLoading(true);
 
-        const userData = { username, password };
+		const userData = { username, password };
 
-        const response =  await loginUser(userData);
+		const response =  await loginUser(userData);
 
-        if (response) {
-            setToken(response.token);
-            localStorage.setItem("token", response.token);
-            const page = "feed";
-            checkToken(navigate, setToken, page)
-            navigate("/feed");
-        } else {
-            setLoading(false);
-        }
-    }
+		if (response) {
+			setToken(response.token);
+			localStorage.setItem("token", response.token);
+			const page = "feed";
+			checkToken(navigate, setToken, page);
+			navigate("/feed");
+		} else {
+			setLoading(false);
+		}
+	}
 
-    return (
-        <Form onSubmit={login}>
-            <Input type="text" placeholder="username" disabled={loading} value={username} onChange={(e) => setUsername(e.target.value)} />
-            <Input type="password" placeholder="password" disabled={loading} value={password} onChange={(e) => setPassword(e.target.value)} />
-            <Button type="submit" disabled={loading} name={"Login"} />
-        </Form>
-    );
+	return (
+		<Form onSubmit={login}>
+			<Input type="text" placeholder="username" disabled={loading} value={username} onChange={(e) => setUsername(e.target.value)} />
+			<Input type="password" placeholder="password" disabled={loading} value={password} onChange={(e) => setPassword(e.target.value)} />
+			<Button type="submit" disabled={loading} name={"Login"} />
+		</Form>
+	);
 }
 
 const Form = styled.form`

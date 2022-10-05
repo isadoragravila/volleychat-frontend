@@ -10,85 +10,85 @@ import { useNavigate } from "react-router-dom";
 import { insertParticipants } from "../services/participants";
 
 export default function CreateChat({ categoryId, setChats }) {
-    const navigate = useNavigate();
-    const { token } = useContext(UserContext);
-    const [loading, setLoading] = useState(false);
-    const [openCreate, setOpenCreate] = useState(false);
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+	const navigate = useNavigate();
+	const { token } = useContext(UserContext);
+	const [loading, setLoading] = useState(false);
+	const [openCreate, setOpenCreate] = useState(false);
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
 
-    async function create(e) {
-        e.preventDefault();
-        setLoading(true);
+	async function create(e) {
+		e.preventDefault();
+		setLoading(true);
 
-        const body = { title, description };
+		const body = { title, description };
 
-        const response = await createChat(body, config, categoryId);
+		const response = await createChat(body, config, categoryId);
 
-        if (response && response.status === 201) {
-            const chatId = response.data.id;
-            setTitle('');
-            setDescription('');
-            setLoading(false);
-            setOpenCreate(false);
-            fetchChatrooms();
-            const response2 = await insertParticipants(config, chatId);
-            if (response2 === 201) {
-                navigate(`/feed/${categoryId}/chat/${chatId}`);
-            }
-        } else {
-            setLoading(false);
-        }
-    }
+		if (response && response.status === 201) {
+			const chatId = response.data.id;
+			setTitle("");
+			setDescription("");
+			setLoading(false);
+			setOpenCreate(false);
+			fetchChatrooms();
+			const response2 = await insertParticipants(config, chatId);
+			if (response2 === 201) {
+				navigate(`/feed/${categoryId}/chat/${chatId}`);
+			}
+		} else {
+			setLoading(false);
+		}
+	}
 
-    async function fetchChatrooms() {
-        const response = await getChatrooms(config, categoryId);
-        setChats(response.chatrooms);
-    }
+	async function fetchChatrooms() {
+		const response = await getChatrooms(config, categoryId);
+		setChats(response.chatrooms);
+	}
 
-    return (
-        <Conteiner>
-            {openCreate ? (
-                <Content>
-                    <Form onSubmit={create}>
-                        <Input
-                            type="text"
-                            disabled={loading}
-                            placeholder='Title'
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required
-                            id="title"
-                        />
-                        <TextArea
-                            disabled={loading}
-                            placeholder='Description'
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required
-                        />
-                        <Button type="submit" disabled={loading} name={"Create"} id="create" />
-                    </Form>
-                    <ArrowUp onClick={() => setOpenCreate(false)} />
-                </Content>
-            ) : (
-                <ButtonArea>
-                    <Button type="button" disabled={loading} name={"Create a new chat room"} id="activate" onClick={() => setOpenCreate(true)} />
-                </ButtonArea>
-            )}
-        </Conteiner>
-    )
+	return (
+		<Conteiner>
+			{openCreate ? (
+				<Content>
+					<Form onSubmit={create}>
+						<Input
+							type="text"
+							disabled={loading}
+							placeholder='Title'
+							value={title}
+							onChange={(e) => setTitle(e.target.value)}
+							required
+							id="title"
+						/>
+						<TextArea
+							disabled={loading}
+							placeholder='Description'
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+							required
+						/>
+						<Button type="submit" disabled={loading} name={"Create"} id="create" />
+					</Form>
+					<ArrowUp onClick={() => setOpenCreate(false)} />
+				</Content>
+			) : (
+				<ButtonArea>
+					<Button type="button" disabled={loading} name={"Create a new chat room"} id="activate" onClick={() => setOpenCreate(true)} />
+				</ButtonArea>
+			)}
+		</Conteiner>
+	);
 }
 
 const Conteiner = styled.div`
     margin-bottom: 20px;
-`
+`;
 
 const Content = styled.div`
     background-color: rgba(242, 194, 48, 0.7);

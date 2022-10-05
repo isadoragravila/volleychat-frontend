@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export default function Message({ name, content, writerId, userId }) {
-    return (
-        <Conteiner writerId={writerId} userId={userId}>
-            <Content writerId={writerId} userId={userId}>
-                <User>{name}</User>
-                <Text>{content}</Text>
-            </Content>
-        </Conteiner>
-    )
+	return (
+		<Conteiner writerId={writerId} userId={userId}>
+			<Content writerId={writerId} userId={userId}>
+				<User>{name}</User>
+				<Text>{content}</Text>
+			</Content>
+		</Conteiner>
+	);
 }
 
 const Conteiner = styled.div`

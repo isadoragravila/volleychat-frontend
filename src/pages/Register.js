@@ -7,28 +7,28 @@ import UserContext from "../context/UserContext";
 import { checkToken } from "../utils/validateToken";
 
 export default function Register() {
-    const navigate = useNavigate();
-    const { setToken } = useContext(UserContext);
-    const tokenStorage = localStorage.getItem("token");
+	const navigate = useNavigate();
+	const { setToken } = useContext(UserContext);
+	const tokenStorage = localStorage.getItem("token");
 
-    useEffect(() => {
-        if (tokenStorage) {
-            const page = "feed";
-            checkToken(navigate, setToken, page);
-        }
-    }, []);
+	useEffect(() => {
+		if (tokenStorage) {
+			const page = "feed";
+			checkToken(navigate, setToken, page);
+		}
+	}, []);
 
-    return (
-        <Container>
-            <Logo />
-            <RegisterForm />
-            <Link to="/">
-                <Login>
+	return (
+		<Container>
+			<Logo />
+			<RegisterForm />
+			<Link to="/">
+				<Login>
                     Already have an account? Switch back to login!
-                </Login>
-            </Link>
-        </Container>
-    )
+				</Login>
+			</Link>
+		</Container>
+	);
 }
 
 const Container = styled.div`
@@ -50,4 +50,4 @@ const Login = styled.p`
     @media (max-width: 611px) {
         font-size: 14px;
     }
-`
+`;

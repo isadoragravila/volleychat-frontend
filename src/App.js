@@ -8,23 +8,23 @@ import { useState } from "react";
 import UserContext from "./context/UserContext";
 
 function App() {
-  const [token, setToken] = useState("");
-  const [page, setPage] = useState("feed");
-  const contextValue = { token, setToken, page, setPage };
+	const [token, setToken] = useState("");
+	const [page, setPage] = useState("feed");
+	const contextValue = { token, setToken, page, setPage };
 
-  return (
-    <UserContext.Provider value={contextValue}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/feed" element={<Feed />} />
-          <Route path="/feed/:categoryId" element={<ChatFeed />} />
-          <Route path="/feed/:categoryId/chat/:chatId" element={<Chatroom />} />
-        </Routes>
-      </BrowserRouter>
-    </UserContext.Provider>
-  );
+	return (
+		<UserContext.Provider value={contextValue}>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Login />} />
+					<Route path="/sign-up" element={<Register />} />
+					<Route path="/feed" element={<Feed />} />
+					<Route path="/feed/:categoryId" element={<ChatFeed />} />
+					<Route path="/feed/:categoryId/chat/:chatId" element={<Chatroom />} />
+				</Routes>
+			</BrowserRouter>
+		</UserContext.Provider>
+	);
 }
 
 export default App;

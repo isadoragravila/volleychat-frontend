@@ -7,30 +7,30 @@ import { useEffect, useContext } from "react";
 import UserContext from "../context/UserContext";
 
 export default function Login() {
-    const navigate = useNavigate();
-    const { setToken } = useContext(UserContext);
+	const navigate = useNavigate();
+	const { setToken } = useContext(UserContext);
     
-    useEffect(() => {
-        const page = "feed";
-        checkToken(navigate, setToken, page);
-    }, []);
+	useEffect(() => {
+		const page = "feed";
+		checkToken(navigate, setToken, page);
+	}, []);
 
-    return (
-        <Container>
-            <Logo />
-            <Subtitle>
-                <p>
+	return (
+		<Container>
+			<Logo />
+			<Subtitle>
+				<p>
                     Uniting people with the same love for volleyball. Create chatrooms and make new friends.
-                </p>
-            </Subtitle>
-            <LoginForm />
-            <Link to="/sign-up">
-                <Register>
+				</p>
+			</Subtitle>
+			<LoginForm />
+			<Link to="/sign-up">
+				<Register>
                     First time? Create an account!
-                </Register>
-            </Link>
-        </Container>
-    )
+				</Register>
+			</Link>
+		</Container>
+	);
 }
 
 const Container = styled.div`
@@ -62,7 +62,7 @@ const Subtitle = styled.div`
             font-size: 30px;
         }
     }
-`
+`;
 
 const Register = styled.p`
     color: #f2f2f2;
@@ -75,4 +75,4 @@ const Register = styled.p`
     @media (max-width: 611px) {
         font-size: 14px;
     }
-`
+`;

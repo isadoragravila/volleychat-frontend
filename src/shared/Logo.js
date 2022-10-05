@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { FaVolleyballBall } from 'react-icons/fa';
+import { FaVolleyballBall } from "react-icons/fa";
 
 export default function Logo() {
-    return (
-        <Title>
-            <h1>VolleyChat</h1>
-            <Volleyball />
-        </Title>
-    );
+	return (
+		<Title>
+			<h1>VolleyChat</h1>
+			<Volleyball />
+		</Title>
+	);
 }
 
 const Title = styled.div`

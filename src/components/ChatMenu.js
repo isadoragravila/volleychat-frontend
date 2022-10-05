@@ -3,19 +3,19 @@ import CreateChat from "./CreateChat";
 import FeedCard from "./FeedCard";
 
 export default function ChatMenu({ categoryId, chats, setChats, category }) {
-    return (
-        <Conteiner>
-        <h4>{category}</h4>
-            <CreateChat setChats={setChats} categoryId={categoryId} />
-            {chats.length === 0 ? (
-                <Informative>
-                    <p>There aren't any chats yet! Create the first one!</p>
-                </Informative>
-            ) : (
-                chats.map(chat => <FeedCard key={chat.id} chatId={chat.id} title={chat.title} description={chat.description} time={chat.fromNow} categoryId={categoryId} />)
-            )}
-        </Conteiner>
-    )
+	return (
+		<Conteiner>
+			<h4>{category}</h4>
+			<CreateChat setChats={setChats} categoryId={categoryId} />
+			{chats.length === 0 ? (
+				<Informative>
+					<p>There are no chats yet! Create the first one!</p>
+				</Informative>
+			) : (
+				chats.map(chat => <FeedCard key={chat.id} chatId={chat.id} title={chat.title} description={chat.description} time={chat.fromNow} categoryId={categoryId} />)
+			)}
+		</Conteiner>
+	);
 }
 
 const Conteiner = styled.div`

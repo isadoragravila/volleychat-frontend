@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export default function Button({ type, name, disabled, id, onClick }) {
-    return (
-        <ButtonStyle type={type} disabled={disabled} id= {id} onClick={onClick}>
-            {disabled ? "Loading" : name }
-        </ButtonStyle>
-    );
+	return (
+		<ButtonStyle type={type} disabled={disabled} id= {id} onClick={onClick}>
+			{disabled ? "Loading" : name }
+		</ButtonStyle>
+	);
 }
 
 const ButtonStyle = styled.button`
@@ -27,4 +27,4 @@ const ButtonStyle = styled.button`
     @media (max-width: 611px) {
         font-size: ${props => props.id !== "create" ? "17px" : "15px" };
     }
-`
+`;

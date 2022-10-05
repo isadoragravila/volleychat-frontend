@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { AiOutlineUserAdd } from "react-icons/ai";
 
 export default function Participant({ name, id }) {
-    return (
-        <User>
-            <h6>{name}</h6>
-            <Add />
-        </User>
-    )
+	return (
+		<User>
+			<h6>{name}</h6>
+			<Add />
+		</User>
+	);
 }
 
 const User = styled.div`

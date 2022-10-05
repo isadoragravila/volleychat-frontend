@@ -7,106 +7,106 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { getParticipants, removeParticipant, updateStatus } from "../services/participants";
 import UserContext from "../context/UserContext";
-import useInterval from 'use-interval'
+import useInterval from "use-interval";
 import { getMessages } from "../services/messages";
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 
 export default function Chatroom() {
-    const { token } = useContext(UserContext);
-    const { categoryId, chatId } = useParams();
-    const navigate = useNavigate();
-    const [users, setUsers] = useState([]);
-    const [chatName, setChatName] = useState('');
-    const [messages, setMessages] = useState([]);
-    const [userId, setUserId] = useState(0);
-    const [openParticipants, setOpenParticipants] = useState(false);
+	const { token } = useContext(UserContext);
+	const { categoryId, chatId } = useParams();
+	const navigate = useNavigate();
+	const [users, setUsers] = useState([]);
+	const [chatName, setChatName] = useState("");
+	const [messages, setMessages] = useState([]);
+	const [userId, setUserId] = useState(0);
+	const [openParticipants, setOpenParticipants] = useState(false);
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
 
-    useEffect(() => {
-        if (!token) {
-            navigate(`/feed/${categoryId}`);
-            return
-        }
+	useEffect(() => {
+		if (!token) {
+			navigate(`/feed/${categoryId}`);
+			return;
+		}
 
-        fetchMessages();
-        fetchParticipants();
-    }, []);
+		fetchMessages();
+		fetchParticipants();
+	}, []);
 
 
-    async function fetchParticipants() {
-        const response = await getParticipants(config, chatId);
-        setUsers(response);
-    }
+	async function fetchParticipants() {
+		const response = await getParticipants(config, chatId);
+		setUsers(response);
+	}
 
-    async function fetchMessages() {
-        const response = await getMessages(config, chatId);
-        setChatName(response.title);
-        setMessages(response.messages);
-        setUserId(response.userId);
-    }
+	async function fetchMessages() {
+		const response = await getMessages(config, chatId);
+		setChatName(response.title);
+		setMessages(response.messages);
+		setUserId(response.userId);
+	}
 
-    async function sendStatus() {
-        await updateStatus(config, chatId);
-    }
+	async function sendStatus() {
+		await updateStatus(config, chatId);
+	}
 
-    useInterval(() => {
-        fetchMessages();
-        fetchParticipants();
-        sendStatus();
-    }, 3000);
+	useInterval(() => {
+		fetchMessages();
+		fetchParticipants();
+		sendStatus();
+	}, 3000);
 
-    async function getOutOfChat() {
-        const response = await removeParticipant(config, chatId);
-        if (response === 200) {
-            navigate(`/feed/${categoryId}`);
-        }
-    }
+	async function getOutOfChat() {
+		const response = await removeParticipant(config, chatId);
+		if (response === 200) {
+			navigate(`/feed/${categoryId}`);
+		}
+	}
 
-    return (
-        <Conteiner>
-            <Header />
-            <Content>
-                <LeftSide>
-                    <h2>{chatName}</h2>
-                    <h3>Participants</h3>
-                    <Downside>
-                        {users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)}
-                    </Downside>
-                    <h5 onClick={getOutOfChat}>Leave chatroom</h5>
-                </LeftSide>
-                <MenuMobile>
-                    <Upside>
-                        <h3 onClick={() => setOpenParticipants(!openParticipants)}>
+	return (
+		<Conteiner>
+			<Header />
+			<Content>
+				<LeftSide>
+					<h2>{chatName}</h2>
+					<h3>Participants</h3>
+					<Downside>
+						{users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)}
+					</Downside>
+					<h5 onClick={getOutOfChat}>Leave chatroom</h5>
+				</LeftSide>
+				<MenuMobile>
+					<Upside>
+						<h3 onClick={() => setOpenParticipants(!openParticipants)}>
                             Participants
-                            {openParticipants ? <ArrowUp /> : <ArrowDown />}
-                        </h3>
-                        <h2>{chatName}</h2>
-                        <Close onClick={getOutOfChat} />
-                    </Upside>
-                    <Downside>
-                        {openParticipants ? (
-                            users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)
-                        ) : (
-                            null
-                        )}
-                    </Downside>
-                </MenuMobile>
-                <RightSide>
-                    <MessageBoard>
-                        {messages.map(item => <Message name={item.user.username} content={item.content} writerId={item.userId} userId={userId} />)}
-                        <Margin></Margin>
-                    </MessageBoard>
-                    <WriteMessage chatId={chatId} fetchMessages={fetchMessages} />
-                </RightSide>
-            </Content>
-        </Conteiner>
-    )
+							{openParticipants ? <ArrowUp /> : <ArrowDown />}
+						</h3>
+						<h2>{chatName}</h2>
+						<Close onClick={getOutOfChat} />
+					</Upside>
+					<Downside>
+						{openParticipants ? (
+							users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)
+						) : (
+							null
+						)}
+					</Downside>
+				</MenuMobile>
+				<RightSide>
+					<MessageBoard>
+						{messages.map(item => <Message key={item.id} name={item.user.username} content={item.content} writerId={item.userId} userId={userId} />)}
+						<Margin></Margin>
+					</MessageBoard>
+					<WriteMessage chatId={chatId} fetchMessages={fetchMessages} />
+				</RightSide>
+			</Content>
+		</Conteiner>
+	);
 }
 
 const Conteiner = styled.div`
@@ -185,7 +185,7 @@ const Downside = styled.div`
         max-height: 25vh;
     }
     
-`
+`;
 
 const LeftSide = styled.div`
     background-color: #e2e2e2;

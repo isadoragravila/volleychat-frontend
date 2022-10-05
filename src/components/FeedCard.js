@@ -1,37 +1,37 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { insertParticipants } from "../services/participants";
 import UserContext from "../context/UserContext";
 
 export default function FeedCard({ chatId, title, description, time, categoryId }) {
-    const { token } = useContext(UserContext);
-    const navigate = useNavigate();
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    async function enterChatroom() {
-        const response = await insertParticipants(config, chatId);
-        if (response === 201) {
-            navigate(`/feed/${categoryId}/chat/${chatId}`);
-        }
-    }
-    return (
-        <Conteiner>
-            <UpSide>
-                <Title>{title}</Title>
-                <Time>{time}</Time>
-            </UpSide>
-            <DownSide>
-                <Description>{description}</Description>
-                <Button onClick={ enterChatroom }>
-                    <p>Join</p>
-                </Button>
-            </DownSide>
-        </Conteiner>
-    )
+	const { token } = useContext(UserContext);
+	const navigate = useNavigate();
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+	async function enterChatroom() {
+		const response = await insertParticipants(config, chatId);
+		if (response === 201) {
+			navigate(`/feed/${categoryId}/chat/${chatId}`);
+		}
+	}
+	return (
+		<Conteiner>
+			<UpSide>
+				<Title>{title}</Title>
+				<Time>{time}</Time>
+			</UpSide>
+			<DownSide>
+				<Description>{description}</Description>
+				<Button onClick={ enterChatroom }>
+					<p>Join</p>
+				</Button>
+			</DownSide>
+		</Conteiner>
+	);
 }
 
 const Conteiner = styled.div`
@@ -51,13 +51,13 @@ const UpSide = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
-`
+`;
 const DownSide = styled.div`
     display: flex;
     width: 100%;
     align-items: flex-end;
     justify-content: space-between;
-`
+`;
 
 const Title = styled.div`
     font-family: 'Poppins';
@@ -67,7 +67,7 @@ const Title = styled.div`
     @media (max-width: 611px) {
         font-size: 18px;
     }
-`
+`;
 const Description = styled.div`
     font-family: 'Poppins';
     font-weight: 400;
@@ -80,7 +80,7 @@ const Description = styled.div`
         line-height: 16px;
     }
 
-`
+`;
 const Time = styled.div`
     font-family: 'Poppins';
     font-weight: 400;
@@ -91,7 +91,7 @@ const Time = styled.div`
     @media (max-width: 611px) {
         font-size: 12px;
     }
-`
+`;
 const Button = styled.div`
     width: 96px;
     height: 32px;
@@ -115,4 +115,4 @@ const Button = styled.div`
             font-size: 12px;
         }
     }
-`
+`;

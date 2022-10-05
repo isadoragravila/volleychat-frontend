@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import { RiArrowRightSLine, RiArrowDownSLine } from "react-icons/ri";
+import { RiArrowRightSLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 export default function MenuButton({ name, id }) {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
-    return (
-        <Button onClick={() => navigate(`/feed/${id}`)} >
-            <p>{name}</p><Arrow />
-        </Button>
-    )
+	return (
+		<Button onClick={() => navigate(`/feed/${id}`)} >
+			<p>{name}</p><Arrow />
+		</Button>
+	);
 }
 
 const Button = styled.div`
@@ -52,10 +52,4 @@ const Arrow = styled(RiArrowRightSLine)`
         width: 15px;
         height: 15px;
     }
-`;
-
-const ArrowDown = styled(RiArrowDownSLine)`
-  width: 30px;
-  height: 30px;
-  color: #142b73;
 `;

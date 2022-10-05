@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 export default function Input({ type, placeholder, disabled, value, onChange, id }) {
-    return (
-        <InputStyle
-            type={type}
-            placeholder={placeholder}
-            disabled={disabled}
-            value={value}
-            onChange={onChange}
-            required
-            id={id}
-        />
-    );
+	return (
+		<InputStyle
+			type={type}
+			placeholder={placeholder}
+			disabled={disabled}
+			value={value}
+			onChange={onChange}
+			required
+			id={id}
+		/>
+	);
 }
 
 const InputStyle = styled.input`
