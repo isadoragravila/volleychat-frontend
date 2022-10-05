@@ -7,7 +7,7 @@ export default function Timeline() {
 		<>
 			{posts.length === 0 ? (
 				<Informative>
-					<p>There are no any post yet! Create a chat room or join one!</p>
+					<p>There are no post yet! Create a chat room or join one!</p>
 				</Informative>
 			) : (
 				"tchau"
