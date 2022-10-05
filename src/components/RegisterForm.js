@@ -34,7 +34,7 @@ export default function RegisterForm() {
 			<Input type="text" placeholder="username" disabled={loading} value={username} onChange={(e) => setUsername(e.target.value)} />
 			<Input type="email" placeholder="email" disabled={loading} value={email} onChange={(e) => setEmail(e.target.value)} />
 			<Input type="password" placeholder="password" disabled={loading} value={password} onChange={(e) => setPassword(e.target.value)} />
-			<Input type="url" placeholder="url" disabled={loading} value={image} onChange={(e) => setImage(e.target.value)} />
+			<Input type="url" placeholder="imageUrl" disabled={loading} value={image} onChange={(e) => setImage(e.target.value)} />
 			<Input type="text" placeholder="bio" disabled={loading} value={bio} onChange={(e) => setBio(e.target.value)} />
 			<Button type="submit" disabled={loading} name={"Register"} />
 		</Form>

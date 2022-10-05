@@ -22,7 +22,7 @@ export default function Register() {
 		<Container>
 			<Logo />
 			<RegisterForm />
-			<Link to="/">
+			<Link to="/" data-cy="goToLogin">
 				<Login>
                     Already have an account? Switch back to login!
 				</Login>
