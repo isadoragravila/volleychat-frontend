@@ -10,9 +10,9 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('createUser', (URL_BACK, user) => {
+Cypress.Commands.add("createUser", (URL_BACK, user) => {
 
-    cy.request('POST', `${URL_BACK}/sign-up`, user);
+	cy.request("POST", `${URL_BACK}/sign-up`, user);
 });
 //
 //
