@@ -10,7 +10,10 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('createUser', (URL_BACK, user) => {
+
+    cy.request('POST', `${URL_BACK}/sign-up`, user);
+});
 //
 //
 // -- This is a child command --

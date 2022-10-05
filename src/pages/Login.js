@@ -24,7 +24,7 @@ export default function Login() {
 				</p>
 			</Subtitle>
 			<LoginForm />
-			<Link to="/sign-up">
+			<Link to="/sign-up" data-cy="goToRegister">
 				<Register>
                     First time? Create an account!
 				</Register>
