@@ -7,7 +7,7 @@ beforeEach(async () => {
 	await cy.request("POST", `${URL_BACK}/e2e/reset`, {});
 });
 
-describe("Create chat", () => {
+describe("Chat feed", () => {
 	it("should create chat successfully", () => {
 		const user = {
 			username: faker.internet.userName(),
@@ -46,5 +46,35 @@ describe("Create chat", () => {
 		cy.get("[data-cy=chatTitle]").contains(chat.title);
 
 		cy.get("[data-cy=participants]").contains(user.username);
+	});
+
+	it("should get chats successfully", () => {
+		const user = {
+			username: faker.internet.userName(),
+			password: faker.internet.password(10),
+			email: faker.internet.email(),
+			image: faker.internet.avatar(),
+			bio: faker.lorem.sentences(2)
+		};
+
+		const chat = {
+			title: faker.lorem.words(2),
+			description: faker.lorem.sentences(2)
+		};
+
+		cy.createUserAndLogin(URL_BACK, user).then(token => {
+			cy.createChat(URL_BACK, chat, token);
+		});
+
+		cy.intercept("GET", `${URL_BACK}/categories`).as("categories");
+		cy.intercept("GET", `${URL_BACK}/profile`).as("profile");
+
+		cy.visit(`${URL_FRONT}/feed/1`);
+
+		cy.wait("@categories");
+		cy.wait("@profile");
+
+		cy.get("[data-cy=chatTitle]").contains(chat.title);
+		cy.get("[data-cy=chatDescription]").contains(chat.description);
 	});
 });

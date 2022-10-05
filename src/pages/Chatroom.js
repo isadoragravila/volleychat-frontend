@@ -78,7 +78,7 @@ export default function Chatroom() {
 					<Downside data-cy="participants">
 						{users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)}
 					</Downside>
-					<h5 onClick={getOutOfChat}>Leave chatroom</h5>
+					<h5 data-cy="leaveRoom" onClick={getOutOfChat}>Leave chatroom</h5>
 				</LeftSide>
 				<MenuMobile>
 					<Upside>

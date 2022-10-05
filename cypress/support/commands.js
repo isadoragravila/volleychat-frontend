@@ -22,8 +22,21 @@ Cypress.Commands.add("createUserAndLogin", (URL_BACK, user) => {
 			password: user.password
 		}).then(res => {
 			window.localStorage.setItem("token", res.body.token);
+			return res.body.token;
 		});
 	});
+});
+
+Cypress.Commands.add("createChat", (URL_BACK, chat, token) => {
+	const options = {
+		method: "POST",
+		url: `${URL_BACK}/chats/create/1`,
+		auth: {
+			"bearer": `${token}`,
+		},
+		body: chat
+	};
+	cy.request(options);
 });
 
 //

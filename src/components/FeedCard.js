@@ -21,12 +21,12 @@ export default function FeedCard({ chatId, title, description, time, categoryId 
 	return (
 		<Conteiner>
 			<UpSide>
-				<Title>{title}</Title>
+				<Title data-cy="chatTitle" >{title}</Title>
 				<Time>{time}</Time>
 			</UpSide>
 			<DownSide>
-				<Description>{description}</Description>
-				<Button onClick={ enterChatroom }>
+				<Description data-cy="chatDescription">{description}</Description>
+				<Button data-cy="join" onClick={ enterChatroom }>
 					<p>Join</p>
 				</Button>
 			</DownSide>
