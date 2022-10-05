@@ -78,7 +78,7 @@ export default function CreateChat({ categoryId, setChats }) {
 					<ArrowUp onClick={() => setOpenCreate(false)} />
 				</Content>
 			) : (
-				<ButtonArea>
+				<ButtonArea data-cy="createChat">
 					<Button type="button" disabled={loading} name={"Create a new chat room"} id="activate" onClick={() => setOpenCreate(true)} />
 				</ButtonArea>
 			)}
