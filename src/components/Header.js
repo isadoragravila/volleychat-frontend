@@ -26,7 +26,7 @@ export default function Header() {
 			</Logo>
 			<Menu>
 				<p>Edit profile</p>
-				<p onClick={logout}>Logout</p>
+				<p data-cy="logout" onClick={logout}>Logout</p>
 				<img src={imageProfile} alt="user" />
 			</Menu>
 		</Conteiner>

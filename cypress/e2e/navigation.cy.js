@@ -101,4 +101,28 @@ describe("Navigate between pages", () => {
 
 		cy.url().should("equal", `${URL_FRONT}/feed/1`);
 	});
+
+	it("should logout, navigating to login page", () => {
+		const user = {
+			username: faker.internet.userName(),
+			password: faker.internet.password(10),
+			email: faker.internet.email(),
+			image: faker.internet.avatar(),
+			bio: faker.lorem.sentences(2)
+		};
+
+		cy.createUserAndLogin(URL_BACK, user);
+
+		cy.intercept("GET", `${URL_BACK}/categories`).as("categories");
+		cy.intercept("GET", `${URL_BACK}/profile`).as("profile");
+
+		cy.visit(`${URL_FRONT}/feed`);
+
+		cy.wait("@categories");
+		cy.wait("@profile");
+
+		cy.get("[data-cy=logout]").click();
+
+		cy.url().should("equal", `${URL_FRONT}/`);
+	});
 });
