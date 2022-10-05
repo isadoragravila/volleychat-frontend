@@ -4,8 +4,8 @@ export default function Message({ name, content, writerId, userId }) {
 	return (
 		<Conteiner writerId={writerId} userId={userId}>
 			<Content writerId={writerId} userId={userId}>
-				<User>{name}</User>
-				<Text>{content}</Text>
+				<User data-cy="username">{name}</User>
+				<Text data-cy="message">{content}</Text>
 			</Content>
 		</Conteiner>
 	);
