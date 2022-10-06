@@ -1,8 +1,14 @@
 import styled from "styled-components";
+import PostCard from "./PostCard";
 import ProfileBox from "./ProfileBox";
 
 export default function Timeline() {
-	const posts = [];
+	const posts = [{
+		id: 1,
+		username: "bobesponja",
+		chatroom: "Brasil x Itália",
+		type: "created"
+	}];
 
 	return (
 		<>
@@ -14,7 +20,7 @@ export default function Timeline() {
 					<p>There is no activity yet! Create a chat room or join one!</p>
 				</Informative>
 			) : (
-				"tchau"
+				posts.map(item => <PostCard key={item.id} username={item.username} chatroom={item.chatroom} type={item.type} />)
 			)}
 		</>
 	);
