@@ -1,18 +1,29 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { insertParticipants } from "../services/participants";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 
-export default function PostCard({ userId, username, chatroomId, chatroom, type, fromNow }) {
+export default function PostCard({ categoryId, username, chatroomId, chatroom, type, fromNow }) {
 	const navigate = useNavigate();
+	const { token } = useContext(UserContext);
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
 
 	async function goToChatroom() {
-		//falta
+		const response = await insertParticipants(config, chatroomId);
+		if (response === 201) {
+			navigate(`/feed/${categoryId}/chat/${chatroomId}`);
+		}
 	}
 
 	return (
 		<Conteiner>
 			<Message>
-				<Name>{username}</Name> {type} the chatroom <Clickable>{chatroom}</Clickable>, enter now and send a message!
+				<Name>{username}</Name> {type} the chatroom <Clickable onClick={goToChatroom}>{chatroom}</Clickable>, enter now and send a message!
 			</Message>
 			<Time><p>{fromNow}</p></Time>
 		</Conteiner>
