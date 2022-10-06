@@ -1,13 +1,17 @@
 import styled from "styled-components";
+import ProfileBox from "./ProfileBox";
 
 export default function Timeline() {
 	const posts = [];
 
 	return (
 		<>
+			<Profile>
+				<ProfileBox />
+			</Profile>
 			{posts.length === 0 ? (
 				<Informative>
-					<p>There are no post yet! Create a chat room or join one!</p>
+					<p>There is no activity yet! Create a chat room or join one!</p>
 				</Informative>
 			) : (
 				"tchau"
@@ -39,3 +43,11 @@ const Informative = styled.div`
     }
 `;
 
+const Profile = styled.div`
+    display: flex;
+    width: 100%;
+
+    @media (max-width: 611px) {
+        display: none;
+    }
+`;

@@ -7,6 +7,7 @@ import UserContext from "../context/UserContext";
 import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
+import ProfileBox from "../components/ProfileBox";
 
 export default function Feed() {
 	const navigate = useNavigate();
@@ -37,6 +38,9 @@ export default function Feed() {
 		<Conteiner>
 			<Header />
 			<Content>
+				<Profile>
+					<ProfileBox />
+				</Profile>
 				<LeftSide>
 					<UpSide>
 						<h3>Choose your chat category</h3>
@@ -69,6 +73,14 @@ const Content = styled.div`
         flex-direction: column;
         width: 100%;
         padding-top: 100px;
+    }
+`;
+
+const Profile = styled.div`
+    display: none;
+    width: 100%;
+    @media (max-width: 611px) {
+        display: flex;
     }
 `;
 
