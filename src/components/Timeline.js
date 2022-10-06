@@ -1,15 +1,7 @@
 import styled from "styled-components";
 import PostCard from "./PostCard";
 
-export default function Timeline() {
-	//buscar posts
-	const posts = [{
-		id: 1,
-		username: "bobesponja",
-		chatroom: "Brasil x Itália",
-		type: "created"
-	}];
-
+export default function Timeline({ posts }) {
 	return (
 		<>
 			{posts.length === 0 ? (
@@ -17,7 +9,7 @@ export default function Timeline() {
 					<p>There is no activity yet! Create a chat room or join one!</p>
 				</Informative>
 			) : (
-				posts.map(item => <PostCard key={item.id} id={item.id} username={item.username} chatroom={item.chatroom} type={item.type} />)
+				posts.map(item => <PostCard key={item.id} userId={item.userId} username={item.username} chatroomId={item.chatroomId} chatroom={item.chatroom} type={item.type} fromNow={item.fromNow} />)
 			)}
 		</>
 	);

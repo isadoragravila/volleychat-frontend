@@ -1,35 +1,20 @@
+/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import { useContext } from "react";
-// import { insertParticipants } from "../services/participants";
-// import UserContext from "../context/UserContext";
 
-export default function PostCard({ id, username, chatroom, type }) {
-	// const { token } = useContext(UserContext);
-	// const navigate = useNavigate();
-	// const config = {
-	// 	headers: {
-	// 		Authorization: `Bearer ${token}`,
-	// 	},
-	// };
-	// async function enterChatroom() {
-	// 	const response = await insertParticipants(config, chatId);
-	// 	if (response === 201) {
-	// 		navigate(`/feed/${categoryId}/chat/${chatId}`);
-	// 	}
-	// }
-
+export default function PostCard({ userId, username, chatroomId, chatroom, type, fromNow }) {
 	const navigate = useNavigate();
-	function goToProfile() {
-		navigate(`/profile/${id}`);
+
+	async function goToChatroom() {
+		//falta
 	}
 
 	return (
 		<Conteiner>
 			<Message>
-				<Clickable onClick={goToProfile}>{username}</Clickable> {type} the chatroom <Clickable>{chatroom}</Clickable>, enter and send a message
+				<Name>{username}</Name> {type} the chatroom <Clickable>{chatroom}</Clickable>, enter now and send a message!
 			</Message>
-
+			<Time><p>{fromNow}</p></Time>
 		</Conteiner>
 	);
 }
@@ -40,7 +25,7 @@ const Conteiner = styled.div`
     min-height: 50px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     padding: 16px;
     margin-bottom: 15px;
 `;
@@ -68,5 +53,36 @@ const Clickable = styled.span`
         @media (max-width: 611px) {
         font-size: 14px;
         line-height: 16px;
+    }
+`;
+
+const Name = styled.span`
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #142b73;
+        @media (max-width: 611px) {
+        font-size: 14px;
+        line-height: 16px;
+    }
+`;
+
+const Time = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+    p {
+        font-family: 'Poppins';
+        font-weight: 400;
+        font-size: 14px;
+        display: flex;
+        text-align: center;
+        color: #6A6A6A;
+    }
+    @media (max-width: 611px) {
+        p {
+            font-size: 12px;
+        }
     }
 `;

@@ -8,6 +8,7 @@ import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import { getProfileById } from "../services/participants";
+import { getPosts } from "../services/posts";
 
 export default function ProfilePage() {
 	const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function ProfilePage() {
 	const { token, setToken } = useContext(UserContext);
 	const [categories, setCategories] = useState([]);
 	const [profile, setProfile] = useState({});
+	const [posts, setPosts] = useState([]);
 	const config = {
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -31,6 +33,11 @@ export default function ProfilePage() {
 		setProfile(response.data);
 	}
 
+	async function fetchPosts() {
+		const response = await getPosts(config, id);
+		setPosts(response.data);
+	}
+
 	useEffect(() => {
 		if (!token) {
 			const page = `profile/${id}`;
@@ -40,6 +47,7 @@ export default function ProfilePage() {
 
 		fetchCategories();
 		getProfile();
+		fetchPosts();
 	}, [token]);
 
 	return (
@@ -63,7 +71,7 @@ export default function ProfilePage() {
 						</Title>
 						<img src={profile.image} alt="user" />
 					</Profile>
-					<Timeline />
+					<Timeline posts={posts} />
 				</RightSide>
 			</Content>
 		</Conteiner>

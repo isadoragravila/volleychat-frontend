@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import Header from "../components/Header";
 import Timeline from "../components/Timeline";
@@ -8,11 +9,30 @@ import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import ProfileBox from "../components/ProfileBox";
+import { getPosts } from "../services/posts";
 
 export default function Feed() {
 	const navigate = useNavigate();
 	const { token, setToken } = useContext(UserContext);
 	const [categories, setCategories] = useState([]);
+	const [posts, setPosts] = useState([]);
+	const userId = localStorage.getItem("userId");
+
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	async function fetchCategories() {
+		const response = await getCategories(config);
+		setCategories(response);
+	}
+
+	async function fetchPosts() {
+		const response = await getPosts(config, userId);
+		setPosts(response.data);
+	}
 
 	useEffect(() => {
 		if (!token) {
@@ -21,17 +41,10 @@ export default function Feed() {
 			return;
 		}
 
-		async function fetchCategories() {
-			const config = {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			};
-			const response = await getCategories(config);
-			setCategories(response);
-		}
-
 		fetchCategories();
+		if (userId) {
+			fetchPosts();
+		}
 	}, [token]);
 
 	return (
@@ -53,7 +66,7 @@ export default function Feed() {
 					<Profile>
 						<ProfileBox />
 					</Profile>
-					<Timeline />
+					<Timeline posts={posts}/>
 				</RightSide>
 			</Content>
 		</Conteiner>
