@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { removeParticipant } from "../services/participants";
 
-export default function Participant({ id, name }) {
+export default function Participant({ id, name, config, chatId }) {
 	const navigate = useNavigate();
-	function goToProfile() {
-		navigate(`/profile/${id}`);
+	async function goToProfile() {
+		const response = await removeParticipant(config, chatId);
+		if (response === 200) {
+			navigate(`/profile/${id}`);
+		}
 	}
 
 	return (
