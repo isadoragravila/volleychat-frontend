@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { useContext } from "react";
 // import { insertParticipants } from "../services/participants";
 // import UserContext from "../context/UserContext";
 
-export default function PostCard({ username, chatroom, type }) {
+export default function PostCard({ id, username, chatroom, type }) {
 	// const { token } = useContext(UserContext);
 	// const navigate = useNavigate();
 	// const config = {
@@ -19,9 +18,17 @@ export default function PostCard({ username, chatroom, type }) {
 	// 		navigate(`/feed/${categoryId}/chat/${chatId}`);
 	// 	}
 	// }
+
+	const navigate = useNavigate();
+	function goToProfile() {
+		navigate(`/profile/${id}`);
+	}
+
 	return (
 		<Conteiner>
-			<Message><Clickable>{username}</Clickable> {type} the chatroom <Clickable>{chatroom}</Clickable>, enter and send a message</Message>
+			<Message>
+				<Clickable onClick={goToProfile}>{username}</Clickable> {type} the chatroom <Clickable>{chatroom}</Clickable>, enter and send a message
+			</Message>
 
 		</Conteiner>
 	);
