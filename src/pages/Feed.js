@@ -42,9 +42,7 @@ export default function Feed() {
 		}
 
 		fetchCategories();
-		if (userId) {
-			fetchPosts();
-		}
+		fetchPosts();
 	}, [token]);
 
 	return (

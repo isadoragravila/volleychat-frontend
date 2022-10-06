@@ -25,6 +25,7 @@ export default function RegisterForm() {
 		if (response) {
 			setToken(response.token);
 			localStorage.setItem("token", response.token);
+			localStorage.setItem("userId", response.userId);
 			const page = "feed";
 			checkToken(navigate, setToken, page);
 			navigate("/feed");
