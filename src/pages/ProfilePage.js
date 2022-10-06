@@ -7,28 +7,33 @@ import UserContext from "../context/UserContext";
 import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
-import ProfileBox from "../components/ProfileBox";
 
-export default function Feed() {
+export default function ProfilePage() {
 	const navigate = useNavigate();
 	const { token, setToken } = useContext(UserContext);
 	const [categories, setCategories] = useState([]);
+	const config = {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	async function fetchCategories() {
+		const response = await getCategories(config);
+		setCategories(response);
+	}
+
+	const profile = {
+		id: 1,
+		username: "patrickestrela",
+		bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+	};
 
 	useEffect(() => {
 		if (!token) {
-			const page = "feed";
+			const page = "profile/1";
 			checkToken(navigate, setToken, page);
 			return;
-		}
-
-		async function fetchCategories() {
-			const config = {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			};
-			const response = await getCategories(config);
-			setCategories(response);
 		}
 
 		fetchCategories();
@@ -38,12 +43,10 @@ export default function Feed() {
 		<Conteiner>
 			<Header />
 			<Content>
-				<ProfileMobile>
-					<ProfileBox />
-				</ProfileMobile>
 				<LeftSide>
 					<UpSide>
 						<h3>Choose your chat category</h3>
+						<h6 data-cy="return" onClick={() => navigate("/feed")}>Return to timeline</h6>
 					</UpSide>
 					<DownSide>
 						{categories.map(item => <MenuButton key={item.id} id={item.id} name={item.name} />)}
@@ -51,7 +54,8 @@ export default function Feed() {
 				</LeftSide>
 				<RightSide>
 					<Profile>
-						<ProfileBox />
+						<Title>{profile.username}</Title>
+						<Bio>{profile.bio}</Bio>
 					</Profile>
 					<Timeline />
 				</RightSide>
@@ -81,19 +85,8 @@ const Content = styled.div`
 
 const Profile = styled.div`
     display: flex;
+    flex-direction: column;
     width: 100%;
-
-    @media (max-width: 611px) {
-        display: none;
-    }
-`;
-
-const ProfileMobile = styled.div`
-    display: none;
-    width: 100%;
-    @media (max-width: 611px) {
-        display: flex;
-    }
 `;
 
 const LeftSide = styled.div`
@@ -112,7 +105,17 @@ const LeftSide = styled.div`
         font-size: 20px;
         color: #142b73;
         text-align: center;
-        margin-bottom: 48px;
+        margin-bottom: 17px;
+    }
+    h6 {
+        font-family: "Poppins";
+        font-weight: 400;
+        font-size: 14px;
+        color: #142b73;
+        text-align: center;
+        margin-bottom: 17px;
+        cursor: pointer;
+        text-decoration: underline;
     }
     @media (max-width: 611px) {
         width: 100%;
@@ -121,6 +124,20 @@ const LeftSide = styled.div`
         h3 {
             font-size: 16px;
             margin-bottom: 20px;
+            line-height: 20px;
+        }
+        h6 {
+            font-size: 12px;
+            line-height: 14px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        h3 {
+            max-width: 180px;
+        }
+        h6 {
+            max-width: 90px;
         }
     }
 `;
@@ -145,4 +162,31 @@ const RightSide = styled.div`
         width: 100%;
         margin-top: 20px;
     }
+`;
+
+const Title = styled.div`
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 25px;
+    color: #142B73;
+    @media (max-width: 611px) {
+        font-size: 20px;
+        margin-left: 10px;
+    }
+`;
+
+const Bio = styled.div`
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #000000;
+    margin-top: 20px;
+    margin-bottom: 16px;
+    @media (max-width: 611px) {
+        font-size: 14px;
+        line-height: 16px;
+        margin-left: 10px;
+    }
+
 `;

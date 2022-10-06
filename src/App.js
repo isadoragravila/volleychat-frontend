@@ -6,6 +6,7 @@ import ChatFeed from "./pages/ChatFeed";
 import Chatroom from "./pages/Chatroom";
 import { useState } from "react";
 import UserContext from "./context/UserContext";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
 	const [token, setToken] = useState("");
@@ -21,6 +22,7 @@ function App() {
 					<Route path="/feed" element={<Feed />} />
 					<Route path="/feed/:categoryId" element={<ChatFeed />} />
 					<Route path="/feed/:categoryId/chat/:chatId" element={<Chatroom />} />
+					<Route path="/profile/:userId" element={<ProfilePage />} />
 				</Routes>
 			</BrowserRouter>
 		</UserContext.Provider>

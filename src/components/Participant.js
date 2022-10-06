@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-export default function Participant({ name }) {
+export default function Participant({ id, name }) {
+	const navigate = useNavigate();
+	function goToProfile() {
+		navigate(`/profile/${id}`);
+	}
+
 	return (
-		<User>
+		<User onClick={goToProfile}>
 			<h6>{name}</h6>
-			<Add />
 		</User>
 	);
 }
@@ -21,17 +25,5 @@ const User = styled.div`
         margin-bottom: 0;
         margin-top: 12px;
         justify-content: flex-start;
-    }
-`;
-
-const Add = styled(AiOutlineUserAdd)`
-    width: 23px;
-    height: 23px;
-    color: #000000;
-    cursor: pointer;
-    @media (max-width: 611px) {
-        width: 20px;
-        height: 20px;
-        margin-left: 20px;
     }
 `;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PostCard from "./PostCard";
-import ProfileBox from "./ProfileBox";
 
 export default function Timeline() {
+	//buscar posts
 	const posts = [{
 		id: 1,
 		username: "bobesponja",
@@ -12,9 +12,6 @@ export default function Timeline() {
 
 	return (
 		<>
-			<Profile>
-				<ProfileBox />
-			</Profile>
 			{posts.length === 0 ? (
 				<Informative>
 					<p>There is no activity yet! Create a chat room or join one!</p>
@@ -46,14 +43,5 @@ const Informative = styled.div`
             font-size: 18px;
             max-width: 300px;
         }
-    }
-`;
-
-const Profile = styled.div`
-    display: flex;
-    width: 100%;
-
-    @media (max-width: 611px) {
-        display: none;
     }
 `;
