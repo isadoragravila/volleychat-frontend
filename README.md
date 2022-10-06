@@ -1,4 +1,68 @@
-# Getting Started with Create React App
+# <p align = "center"> VolleyChat front-end </p>
+
+<p align = "center">
+   <img src="https://img.shields.io/badge/author-isadoragravila-4dae71?style=flat-square" />
+   <img src="https://img.shields.io/github/languages/count/isadoragravila/volleychat-frontend?color=4dae71&style=flat-square" />
+</p>
+
+##  :clipboard: Descrição
+
+Aplicação dedicada aos amantes do vôlei, com o intuito de conectar essas pessoas.
+
+Nela, o usuário poderá interagir com os outros através de salas de bate-papo temáticas, criadas pelos próprios usuários. 
+
+Está acontecendo um jogo neste momento? Crie uma sala e ou entre em uma para conversar sobre!
+
+***
+
+## :computer:	 Tecnologias e Conceitos
+
+- JavaScript
+- React
+
+***
+
+## :rocket: Telas e rotas
+
+- ### Tela de login ( ```/``` )
+    - Usuário realiza login, enviando username e senha;
+    - Em caso de sucesso, ele é redirecionado para a rota (```/feed```);
+
+- ### Tela de cadastro (```/sign-up```)
+    - Usuário realiza o cadastro, enviando os dados pedidos;
+    - Em caso de sucesso, ele é redirecionado para a rota de login ( ```/``` );
+
+- ### Tela de perfil (```/feed```)
+    - As categorias das salas de bate-papo são listadas;
+    - Usuário pode escolher e navegar pelas categorias;
+    - Ao clicar em uma das categorias, o usuário é redirecionado para a rota (```/feed/:categoryId```);
+
+- ### Tela de feed de salas de bate-papo (```/feed/:categoryId```)
+    - As categorias das salas de bate-papo são listadas;
+    - Ao clicar no botão "Create a new chatroom", é exibido o formulário para criação de uma sala de bate-papo;
+        - Após a criação, o usuário é redirecionado para a sala criada, através da rota (```/feed/:categoryId/chat/:chatId```);
+    - As salas de bate-papo existentes da categoria selecionada são listadas;
+        - A cada 5 segundos, essa lista é atualizada;
+        - Ao clicar em "Join", o usuário é redirecionado para a sala selecionada, através da rota (```/feed/:categoryId/chat/:chatId```);
+    - É possível retornar para a rota (```/feed```), clicando no botão "Return to timeline";
+
+- ### Tela de sala de bate-papo (```/feed/:categoryId/chat/:chatId```)
+    - Os participantes da sala são listados;
+        - A cada 3 segundos, os participantes são atualizados;
+        - A cada 3 segundos, é enviado o status do usuário que permanece na sala;
+    - As mensagens da sala são exibidas;
+        - A cada 3 segundos, as mensagens são atualizadas;
+    - É possível enviar mensagens;
+        - Ao enviar, as mensagens são atualizadas;
+    - É possível retornar para a rota (```/feed:categoryId```), clicando no botão "Leave chatroom";
+
+- ### Topo
+    - Ao clicar na logo, o usuário é redirecionado para a rota (```/feed```);
+    - Ao clicar em logout, o usuário faz o logout, sendo redirecionado para a rota de login ( ```/``` );
+
+***
+
+### Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
