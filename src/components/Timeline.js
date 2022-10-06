@@ -9,7 +9,7 @@ export default function Timeline({ posts }) {
 					<p>There is no activity yet! Create a chat room or join one!</p>
 				</Informative>
 			) : (
-				posts.map(item => <PostCard key={item.id} userId={item.userId} username={item.username} chatroomId={item.chatroomId} chatroom={item.chatroom} type={item.type} fromNow={item.fromNow} />)
+				posts.map(item => <PostCard key={item.id} categoryId={item.categoryId} username={item.username} chatroomId={item.chatroomId} chatroom={item.chatroom} type={item.type} fromNow={item.fromNow} />)
 			)}
 		</>
 	);
