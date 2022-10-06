@@ -44,3 +44,14 @@ export async function updateStatus(config, params) {
 			alert(err.response.data);
 		});
 }
+
+export async function getProfileById(config, params) {
+	return axios
+		.get(urlAPI(`profile/${params}`), config)
+		.then((res) => {
+			return res;
+		})
+		.catch((err) => {
+			alert(err.response.data);
+		});
+}

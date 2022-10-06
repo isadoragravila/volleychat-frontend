@@ -22,7 +22,7 @@ function App() {
 					<Route path="/feed" element={<Feed />} />
 					<Route path="/feed/:categoryId" element={<ChatFeed />} />
 					<Route path="/feed/:categoryId/chat/:chatId" element={<Chatroom />} />
-					<Route path="/profile/:userId" element={<ProfilePage />} />
+					<Route path="/profile/:id" element={<ProfilePage />} />
 				</Routes>
 			</BrowserRouter>
 		</UserContext.Provider>

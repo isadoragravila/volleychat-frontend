@@ -2,16 +2,19 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import Timeline from "../components/Timeline";
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
+import { getProfileById } from "../services/participants";
 
 export default function ProfilePage() {
 	const navigate = useNavigate();
+	const { id } = useParams();
 	const { token, setToken } = useContext(UserContext);
 	const [categories, setCategories] = useState([]);
+	const [profile, setProfile] = useState({});
 	const config = {
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -23,20 +26,20 @@ export default function ProfilePage() {
 		setCategories(response);
 	}
 
-	const profile = {
-		id: 1,
-		username: "patrickestrela",
-		bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-	};
+	async function getProfile() {
+		const response = await getProfileById(config, id);
+		setProfile(response.data);
+	}
 
 	useEffect(() => {
 		if (!token) {
-			const page = "profile/1";
+			const page = `profile/${id}`;
 			checkToken(navigate, setToken, page);
 			return;
 		}
 
 		fetchCategories();
+		getProfile();
 	}, [token]);
 
 	return (
@@ -54,8 +57,11 @@ export default function ProfilePage() {
 				</LeftSide>
 				<RightSide>
 					<Profile>
-						<Title>{profile.username}</Title>
-						<Bio>{profile.bio}</Bio>
+						<Title>
+							<Name>{profile.username}</Name>
+							<Bio>{profile.bio}</Bio>
+						</Title>
+						<img src={profile.image} alt="user" />
 					</Profile>
 					<Timeline />
 				</RightSide>
@@ -85,8 +91,22 @@ const Content = styled.div`
 
 const Profile = styled.div`
     display: flex;
-    flex-direction: column;
     width: 100%;
+    justify-content: space-between;
+    //align-items: center;
+    img {
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 37.5px;
+    }
+    @media (max-width: 611px) {
+        img {
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
+    }
+    }
 `;
 
 const LeftSide = styled.div`
@@ -165,6 +185,12 @@ const RightSide = styled.div`
 `;
 
 const Title = styled.div`
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+`;
+
+const Name = styled.div`
     font-family: 'Poppins';
     font-weight: 700;
     font-size: 25px;
