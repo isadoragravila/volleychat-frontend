@@ -21,7 +21,7 @@ export default function Header() {
 	}
 	return (
 		<Conteiner>
-			<Logo onClick={() => navigate("/feed")}>
+			<Logo data-cy="logo" onClick={() => navigate("/feed")}>
 				<Volleyball />
 				<Title>
 					<p>Volley</p>
@@ -30,7 +30,7 @@ export default function Header() {
 			</Logo>
 			<Menu>
 				<p data-cy="logout" onClick={logout}>Logout</p>
-				<img src={imageProfile} alt="user" onClick={() => navigate(`/profile/${userId}`)} />
+				<img data-cy="image" src={imageProfile} alt="user" onClick={() => navigate(`/profile/${userId}`)} />
 			</Menu>
 		</Conteiner>
 	);
@@ -93,6 +93,7 @@ const Menu = styled.div`
         height: 45px;
         object-fit: cover;
         border-radius: 22.5px;
+        cursor: pointer;
     }
     @media (max-width: 611px) {
         p {

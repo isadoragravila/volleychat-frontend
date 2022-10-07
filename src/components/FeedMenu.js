@@ -6,7 +6,7 @@ export default function FeedMenu({ chats }) {
 		<Conteiner>
 			{chats.length === 0 ? (
 				<Informative>
-					<p>There are no chats yet! Create the first one!</p>
+					<p>There are no chats yet!</p>
 				</Informative>
 			) : (
 				chats.map(chat => <ChatCard key={chat.id} chatId={chat.id} title={chat.title} description={chat.description} time={chat.category.name} categoryId={chat.categoryId} />)

@@ -47,4 +47,85 @@ describe("Chatroom", () => {
 		cy.get("[data-cy=message]").contains(message.content);
 		cy.get("[data-cy=username]").contains(user.username);
 	});
+
+	it("should get messages successfully", () => {
+		const user = {
+			username: faker.internet.userName(),
+			password: faker.internet.password(10),
+			email: faker.internet.email(),
+			image: faker.internet.avatar(),
+			bio: faker.lorem.sentences(2)
+		};
+
+		const chat = {
+			title: faker.lorem.words(2),
+			description: faker.lorem.sentences(2)
+		};
+
+		const message = {
+			content: faker.lorem.words()
+		};
+
+		cy.createUserAndLogin(URL_BACK, user).then(token => {
+			cy.createChat(URL_BACK, chat, token).then(chat => {
+				cy.createMessage(URL_BACK, message, token, chat.body.id);
+			});
+		});
+
+		cy.intercept("GET", `${URL_BACK}/categories`).as("categories");
+		cy.intercept("GET", `${URL_BACK}/profile`).as("profile");
+
+		cy.visit(`${URL_FRONT}/feed/1`);
+
+		cy.wait("@categories");
+		cy.wait("@profile");
+
+		cy.get("[data-cy=join]").click();
+
+		cy.get("[data-cy=message]").contains(message.content);
+		cy.get("[data-cy=username]").contains(user.username);
+	});
+
+	it("should navigate to profile page when clicking on username", () => {
+		const user = {
+			username: faker.internet.userName(),
+			password: faker.internet.password(10),
+			email: faker.internet.email(),
+			image: faker.internet.avatar(),
+			bio: faker.lorem.sentences(2)
+		};
+
+		const chat = {
+			title: faker.lorem.words(2),
+			description: faker.lorem.sentences(2)
+		};
+
+		const message = {
+			content: faker.lorem.words()
+		};
+
+		cy.createUserAndLogin(URL_BACK, user).then(token => {
+			cy.createChat(URL_BACK, chat, token).then(chat => {
+				cy.createMessage(URL_BACK, message, token, chat.body.id);
+			});
+		});
+
+		cy.intercept("GET", `${URL_BACK}/categories`).as("categories");
+		cy.intercept("GET", `${URL_BACK}/profile`).as("profile");
+
+		cy.visit(`${URL_FRONT}/feed/1`);
+
+		cy.wait("@categories");
+		cy.wait("@profile");
+
+		cy.get("[data-cy=join]").click();
+
+		cy.get("[data-cy=username]").click();
+
+		cy.wait("@categories");
+        
+		cy.get("[data-cy=username]").contains(user.username);
+
+		cy.url().should("equal", `${URL_FRONT}/profile/1`);
+	});
 });

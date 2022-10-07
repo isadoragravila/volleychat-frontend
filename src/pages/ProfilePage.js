@@ -71,7 +71,7 @@ export default function ProfilePage() {
 				<RightSide>
 					<Profile>
 						<Title>
-							<Name>{`${profile.username}' chats`}</Name>
+							<Name data-cy="username">{`${profile.username}' chats`}</Name>
 							<Bio>{profile.bio}</Bio>
 						</Title>
 						<img src={profile.image} alt="user" />

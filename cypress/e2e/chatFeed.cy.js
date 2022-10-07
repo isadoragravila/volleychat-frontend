@@ -77,4 +77,67 @@ describe("Chat feed", () => {
 		cy.get("[data-cy=chatTitle]").contains(chat.title);
 		cy.get("[data-cy=chatDescription]").contains(chat.description);
 	});
+
+	it("should navigate from chat feed to feed", () => {
+		const user = {
+			username: faker.internet.userName(),
+			password: faker.internet.password(10),
+			email: faker.internet.email(),
+			image: faker.internet.avatar(),
+			bio: faker.lorem.sentences(2)
+		};
+
+		cy.createUserAndLogin(URL_BACK, user);
+
+		cy.intercept("GET", `${URL_BACK}/categories`).as("categories");
+		cy.intercept("GET", `${URL_BACK}/profile`).as("profile");
+
+		cy.visit(`${URL_FRONT}/feed/1`);
+
+		cy.wait("@categories");
+		cy.wait("@profile");
+
+		cy.get("[data-cy=return]").click();
+
+		cy.wait("@categories");
+
+		cy.url().should("equal", `${URL_FRONT}/feed`);
+	});
+    
+	it("should navigate from chat feed to chatroom and then back to chat feed", () => {
+		const user = {
+			username: faker.internet.userName(),
+			password: faker.internet.password(10),
+			email: faker.internet.email(),
+			image: faker.internet.avatar(),
+			bio: faker.lorem.sentences(2)
+		};
+
+		const chat = {
+			title: faker.lorem.words(2),
+			description: faker.lorem.sentences(2)
+		};
+
+		cy.createUserAndLogin(URL_BACK, user).then(token => {
+			cy.createChat(URL_BACK, chat, token);
+		});
+
+		cy.intercept("GET", `${URL_BACK}/categories`).as("categories");
+		cy.intercept("GET", `${URL_BACK}/profile`).as("profile");
+
+		cy.visit(`${URL_FRONT}/feed/1`);
+
+		cy.wait("@categories");
+		cy.wait("@profile");
+
+		cy.get("[data-cy=join]").click();
+
+		cy.get("[data-cy=chatTitle]").contains(chat.title);
+		cy.get("[data-cy=participants]").contains(user.username);
+
+		cy.get("[data-cy=leaveRoom]").click();
+
+		cy.url().should("equal", `${URL_FRONT}/feed/1`);
+	});
+
 });

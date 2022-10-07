@@ -39,6 +39,18 @@ Cypress.Commands.add("createChat", (URL_BACK, chat, token) => {
 	cy.request(options);
 });
 
+Cypress.Commands.add("createMessage", (URL_BACK, message, token, chatId) => {
+	const options = {
+		method: "POST",
+		url: `${URL_BACK}/messages/${chatId}`,
+		auth: {
+			"bearer": `${token}`,
+		},
+		body: message
+	};
+	cy.request(options);
+});
+
 //
 //
 // -- This is a child command --
