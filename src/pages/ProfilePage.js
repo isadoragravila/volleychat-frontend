@@ -171,8 +171,11 @@ const LeftSide = styled.div`
 `;
 
 const UpSide = styled.div`
+    width: 100%;
     @media (max-width: 611px) {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 `;
 

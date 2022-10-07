@@ -91,7 +91,7 @@ export default function Chatroom() {
 					</Upside>
 					<Downside>
 						{openParticipants ? (
-							users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)
+							users.map(item => <Participant key={item.id} name={item.name} id={item.id} config={config} chatId={chatId} />)
 						) : (
 							null
 						)}
@@ -99,7 +99,7 @@ export default function Chatroom() {
 				</MenuMobile>
 				<RightSide>
 					<MessageBoard>
-						{messages.map(item => <Message key={item.id} name={item.user.username} content={item.content} writerId={item.userId} userId={userId} />)}
+						{messages.map(item => <Message key={item.id} name={item.user.username} content={item.content} writerId={item.userId} userId={userId} config={config} chatId={chatId} />)}
 						<Margin></Margin>
 					</MessageBoard>
 					<WriteMessage chatId={chatId} fetchMessages={fetchMessages} />

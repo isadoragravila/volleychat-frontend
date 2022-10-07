@@ -1,10 +1,20 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { removeParticipant } from "../services/participants";
 
-export default function Message({ name, content, writerId, userId }) {
+export default function Message({ name, content, writerId, userId, config, chatId }) {
+	const navigate = useNavigate();
+	async function goToProfile() {
+		const response = await removeParticipant(config, chatId);
+		if (response === 200) {
+			navigate(`/profile/${writerId}`);
+		}
+	}
+
 	return (
 		<Conteiner writerId={writerId} userId={userId}>
 			<Content writerId={writerId} userId={userId}>
-				<User data-cy="username">{name}</User>
+				<User data-cy="username" onClick={goToProfile}>{name}</User>
 				<Text data-cy="message">{content}</Text>
 			</Content>
 		</Conteiner>
@@ -36,6 +46,7 @@ const User = styled.div`
     font-size: 16px;
     line-height: 18px;
     color: #142B73;
+    cursor: pointer;
     @media (max-width: 611px) {
         font-size: 14px;
     }
