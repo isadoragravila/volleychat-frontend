@@ -8,14 +8,18 @@ export default function Header() {
 	const { setToken } = useContext(UserContext);
 	const navigate = useNavigate();
 	const imageProfile = localStorage.getItem("image");
+	const userId = localStorage.getItem("userId");
 
 	function logout() {
 		localStorage.removeItem("token");
 		localStorage.removeItem("image");
+		localStorage.removeItem("userId");
+		localStorage.removeItem("bio");
+		localStorage.removeItem("username");
 		setToken("");
 		navigate("/");
 	}
-	return(
+	return (
 		<Conteiner>
 			<Logo onClick={() => navigate("/feed")}>
 				<Volleyball />
@@ -26,7 +30,7 @@ export default function Header() {
 			</Logo>
 			<Menu>
 				<p data-cy="logout" onClick={logout}>Logout</p>
-				<img src={imageProfile} alt="user" />
+				<img src={imageProfile} alt="user" onClick={() => navigate(`/profile/${userId}`)} />
 			</Menu>
 		</Conteiner>
 	);
