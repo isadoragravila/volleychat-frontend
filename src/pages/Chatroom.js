@@ -125,7 +125,7 @@ const MenuMobile = styled.div`
     min-height: 42px;
     background-color: #e2e2e2;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    position: absolute;
+    position: fixed;
     top: 72px;
     z-index: 1;
     display: none;
