@@ -9,6 +9,7 @@ import MenuButton from "../components/MenuButton";
 import { getProfileById } from "../services/participants";
 import { getChatsByCreator } from "../services/chats";
 import FeedMenu from "../components/FeedMenu";
+import useInterval from "use-interval";
 
 export default function ProfilePage() {
 	const navigate = useNavigate();
@@ -48,7 +49,11 @@ export default function ProfilePage() {
 		fetchCategories();
 		getProfile();
 		fetchChatsByCreator();
-	}, [token]);
+	}, [token, id]);
+
+	useInterval(() => {
+		fetchChatsByCreator();
+	}, 5000);
 
 	return (
 		<Conteiner>
