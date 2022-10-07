@@ -7,7 +7,7 @@ import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { checkToken } from "../utils/validateToken";
 
-export default function RegisterForm() {
+export default function LoginForm() {
 	const { setToken } = useContext(UserContext);
 	const [loading, setLoading] = useState(false);
 	const [username, setUsername] = useState("");

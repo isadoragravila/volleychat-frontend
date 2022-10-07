@@ -19,6 +19,7 @@ export async function checkToken(navigate, setToken, page) {
 			localStorage.setItem("image", response.image);
 			localStorage.setItem("bio", response.bio);
 			localStorage.setItem("username", response.username);
+			localStorage.setItem("userId", response.id);
 			navigate(`/${page}`);
 		} else {
 			localStorage.removeItem("token");
