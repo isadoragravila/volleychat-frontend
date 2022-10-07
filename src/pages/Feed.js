@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import Header from "../components/Header";
-import Timeline from "../components/Timeline";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
@@ -9,13 +7,14 @@ import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import ProfileBox from "../components/ProfileBox";
-import { getPosts } from "../services/posts";
+import { getChatsByCreator } from "../services/chats";
+import FeedMenu from "../components/FeedMenu";
 
 export default function Feed() {
 	const navigate = useNavigate();
 	const { token, setToken } = useContext(UserContext);
 	const [categories, setCategories] = useState([]);
-	const [posts, setPosts] = useState([]);
+	const [chats, setChats] = useState([]);
 	const userId = localStorage.getItem("userId");
 
 	const config = {
@@ -29,9 +28,9 @@ export default function Feed() {
 		setCategories(response);
 	}
 
-	async function fetchPosts() {
-		const response = await getPosts(config, userId);
-		setPosts(response.data);
+	async function fetchChatsByCreator() {
+		const response = await getChatsByCreator(config, userId);
+		setChats(response.data);
 	}
 
 	useEffect(() => {
@@ -42,7 +41,7 @@ export default function Feed() {
 		}
 
 		fetchCategories();
-		fetchPosts();
+		fetchChatsByCreator();
 	}, [token]);
 
 	return (
@@ -64,7 +63,10 @@ export default function Feed() {
 					<Profile>
 						<ProfileBox />
 					</Profile>
-					<Timeline posts={posts}/>
+					<Title>
+                        Your chats
+					</Title>
+					<FeedMenu chats={chats} />
 				</RightSide>
 			</Content>
 		</Conteiner>
@@ -155,5 +157,18 @@ const RightSide = styled.div`
     @media (max-width: 611px) {
         width: 100%;
         margin-top: 20px;
+    }
+`;
+
+const Title = styled.div`
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 22px;
+    color: #142B73;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    @media (max-width: 611px) {
+        font-size: 18px;
+        margin-left: 20px;
     }
 `;

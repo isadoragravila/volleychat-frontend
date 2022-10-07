@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import Timeline from "../components/Timeline";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../context/UserContext";
@@ -8,7 +7,8 @@ import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import { getProfileById } from "../services/participants";
-import { getPosts } from "../services/posts";
+import { getChatsByCreator } from "../services/chats";
+import FeedMenu from "../components/FeedMenu";
 
 export default function ProfilePage() {
 	const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function ProfilePage() {
 	const { token, setToken } = useContext(UserContext);
 	const [categories, setCategories] = useState([]);
 	const [profile, setProfile] = useState({});
-	const [posts, setPosts] = useState([]);
+	const [chats, setChats] = useState([]);
 	const config = {
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -33,9 +33,9 @@ export default function ProfilePage() {
 		setProfile(response.data);
 	}
 
-	async function fetchPosts() {
-		const response = await getPosts(config, id);
-		setPosts(response.data);
+	async function fetchChatsByCreator() {
+		const response = await getChatsByCreator(config, id);
+		setChats(response.data);
 	}
 
 	useEffect(() => {
@@ -47,7 +47,7 @@ export default function ProfilePage() {
 
 		fetchCategories();
 		getProfile();
-		fetchPosts();
+		fetchChatsByCreator();
 	}, [token]);
 
 	return (
@@ -66,12 +66,12 @@ export default function ProfilePage() {
 				<RightSide>
 					<Profile>
 						<Title>
-							<Name>{profile.username}</Name>
+							<Name>{`${profile.username}' chats`}</Name>
 							<Bio>{profile.bio}</Bio>
 						</Title>
 						<img src={profile.image} alt="user" />
 					</Profile>
-					<Timeline posts={posts} />
+					<FeedMenu chats={chats} />
 				</RightSide>
 			</Content>
 		</Conteiner>

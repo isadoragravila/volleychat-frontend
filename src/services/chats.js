@@ -20,3 +20,13 @@ export async function getChatrooms(config, params) {
 			alert(err.response.data);
 		});
 }
+
+export async function getChatsByCreator(config, params) {
+	return axios.get(urlAPI(`chats/creator/${params}`), config)
+		.then((res) => {
+			return res;
+		})
+		.catch((err) => {
+			alert(err.response.data);
+		});
+}

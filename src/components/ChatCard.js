@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { insertParticipants } from "../services/participants";
 import UserContext from "../context/UserContext";
 
-export default function FeedCard({ chatId, title, description, time, categoryId }) {
+export default function ChatCard({ chatId, title, description, time, categoryId }) {
 	const { token } = useContext(UserContext);
 	const navigate = useNavigate();
 	const config = {
@@ -86,7 +86,7 @@ const Time = styled.div`
     font-weight: 400;
     font-size: 14px;
     display: flex;
-    text-align: center;
+    text-align: end;
     color: #6A6A6A;
     @media (max-width: 611px) {
         font-size: 12px;
