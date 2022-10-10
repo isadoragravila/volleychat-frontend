@@ -1,5 +1,9 @@
 # <p align = "center"> VolleyChat front-end </p>
 
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/102394075/194929187-4a1b3fde-336a-42d8-a741-3d701b625ee5.png"/>
+</p>
+
 <p align = "center">
    <img src="https://img.shields.io/badge/author-isadoragravila-4dae71?style=flat-square" />
    <img src="https://img.shields.io/github/languages/count/isadoragravila/volleychat-frontend?color=4dae71&style=flat-square" />
@@ -75,73 +79,61 @@ Está acontecendo um jogo neste momento? Crie uma sala e ou entre em uma para co
 
 ***
 
-### Getting Started with Create React App
+## 🏁 Rodando a aplicação
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### **1. Localmente** (ambiente de desenvolvimento)
 
-## Available Scripts
+Certifique-se que você tenha a última versão estável do [Node.js](https://nodejs.org/en/download/) e [npm](https://www.npmjs.com/) rodando localmente.
 
-In the project directory, you can run:
+Primeiro, faça o clone desse repositório em sua máquina:
 
-### `npm start`
+```
+git clone https://github.com/isadoragravila/volleychat-frontend.git
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Depois, dentro da pasta, rode o seguinte comando para instalar as dependências:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+npm install
+```
 
-### `npm test`
+Para inicializar o servidor, rode:
+```
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **2. Deploy**
 
-### `npm run build`
+Link do deploy no Vercell :
+```
+https://volleychat-frontend.vercel.app/
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+***
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Rodando os testes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Testes E2E
 
-### `npm run eject`
+:stop_sign: Para o funcionamento dos testes, vá até o arquivo `/src/services/api.js` e certifique-se de que a url utilizadas seja a de testes (test);
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Para rodar os testes E2E, primeiramente abra o diretório de back-end (volleychat-backend) no terminal e inicialize o servidor:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm run dev:test
+```
+Em seguida, em uma nova aba, abra o diretório de front-end (esta aplicação) no terminal e inicialize o servidor:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Então, em uma nova aba, abra o diretório de front-end no terminal e inicialize o Cypress:
 
-## Learn More
+```
+npx cypress open
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Na janela do Cypress, selecione a opção "E2E Testing" e depois clique no botão "Start E2E Testing in Electron"
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Dessa forma, é possível escolher os testes a serem rodados, selecionando os specs

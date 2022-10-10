@@ -56,7 +56,7 @@ describe("Header", () => {
 		cy.url().should("equal", `${URL_FRONT}/`);
 	});
 
-	it("should navigate to profile page os user when clicking in the image", () => {
+	it("should navigate to profile page of user when clicking in the image", () => {
 		const user = {
 			username: faker.internet.userName(),
 			password: faker.internet.password(10),
