@@ -23,33 +23,43 @@ export default function CreateChat({ categoryId, setChats }) {
 		},
 	};
 
+	async function enterChatroom(chatId) {
+		try {
+			await insertParticipants(config, chatId);
+			navigate(`/feed/${categoryId}/chat/${chatId}`);
+		} catch (error) {
+			alert(error.response.data);
+		}
+	}
+
 	async function create(e) {
 		e.preventDefault();
 		setLoading(true);
 
 		const body = { title, description };
 
-		const response = await createChat(body, config, categoryId);
-
-		if (response && response.status === 201) {
+		try {
+			const response = await createChat(body, config, categoryId);
 			const chatId = response.data.id;
 			setTitle("");
 			setDescription("");
 			setLoading(false);
 			setOpenCreate(false);
 			fetchChatrooms();
-			const response2 = await insertParticipants(config, chatId);
-			if (response2 === 201) {
-				navigate(`/feed/${categoryId}/chat/${chatId}`);
-			}
-		} else {
+			await enterChatroom(chatId);
+		} catch (error) {
+			alert(error.response.data);
 			setLoading(false);
 		}
 	}
 
 	async function fetchChatrooms() {
-		const response = await getChatrooms(config, categoryId);
-		setChats(response.chatrooms);
+		try {
+			const response = await getChatrooms(config, categoryId);
+			setChats(response.data.chatrooms);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	return (

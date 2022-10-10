@@ -12,12 +12,16 @@ export default function ChatCard({ chatId, title, description, time, categoryId 
 			Authorization: `Bearer ${token}`,
 		},
 	};
+
 	async function enterChatroom() {
-		const response = await insertParticipants(config, chatId);
-		if (response === 201) {
+		try {
+			await insertParticipants(config, chatId);
 			navigate(`/feed/${categoryId}/chat/${chatId}`);
+		} catch (error) {
+			alert(error.response.data);
 		}
 	}
+    
 	return (
 		<Conteiner>
 			<UpSide>

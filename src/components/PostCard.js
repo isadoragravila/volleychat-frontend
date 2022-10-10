@@ -14,9 +14,11 @@ export default function PostCard({ categoryId, username, chatroomId, chatroom, t
 	};
 
 	async function goToChatroom() {
-		const response = await insertParticipants(config, chatroomId);
-		if (response === 201) {
+		try {
+			await insertParticipants(config, chatroomId);
 			navigate(`/feed/${categoryId}/chat/${chatroomId}`);
+		} catch (error) {
+			alert(error.response.data);
 		}
 	}
 

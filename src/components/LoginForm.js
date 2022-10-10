@@ -20,16 +20,16 @@ export default function LoginForm() {
 
 		const userData = { username, password };
 
-		const response =  await loginUser(userData);
-
-		if (response) {
-			setToken(response.token);
-			localStorage.setItem("token", response.token);
-			localStorage.setItem("userId", response.userId);
+		try {
+			const response =  await loginUser(userData);
+			setToken(response.data.token);
+			localStorage.setItem("token", response.data.token);
+			localStorage.setItem("userId", response.data.userId);
 			const page = "feed";
 			checkToken(navigate, setToken, page);
 			navigate("/feed");
-		} else {
+		} catch (error) {
+			alert(error.response.data);
 			setLoading(false);
 		}
 	}

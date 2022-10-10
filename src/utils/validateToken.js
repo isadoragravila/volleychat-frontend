@@ -12,16 +12,16 @@ export async function checkToken(navigate, setToken, page) {
 				Authorization: `Bearer ${tokenStorage}`
 			}
 		};
-		const response = await getProfile(config);
 
-		if (response) {
+		try {
+			const response = await getProfile(config);
 			setToken(tokenStorage);
-			localStorage.setItem("image", response.image);
-			localStorage.setItem("bio", response.bio);
-			localStorage.setItem("username", response.username);
-			localStorage.setItem("userId", response.id);
+			localStorage.setItem("image", response.data.image);
+			localStorage.setItem("bio", response.data.bio);
+			localStorage.setItem("username", response.data.username);
+			localStorage.setItem("userId", response.data.id);
 			navigate(`/${page}`);
-		} else {
+		} catch (error) {
 			localStorage.removeItem("token");
 			localStorage.removeItem("userId");
 			navigate("/");

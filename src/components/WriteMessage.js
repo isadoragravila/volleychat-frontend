@@ -19,14 +19,13 @@ export default function WriteMessage({ chatId, fetchMessages }) {
 		e.preventDefault();
 		const body = { content };
 		setLoading(true);
-
-		const response = await createMessage(body, config, chatId);
-
-		if(response && response.status === 201) {
+		try {
+			await createMessage(body, config, chatId);
 			setContent("");
 			setLoading(false);
 			fetchMessages();
-		} else {
+		} catch (error) {
+			alert(error.response.data);
 			setLoading(false);
 		}
 	}

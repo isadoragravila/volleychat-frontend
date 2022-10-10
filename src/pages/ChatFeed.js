@@ -25,14 +25,22 @@ export default function ChatFeed() {
 	};
 
 	async function fetchCategories() {
-		const response = await getCategories(config);
-		setCategories(response);
+		try {
+			const response = await getCategories(config);
+			setCategories(response.data);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	async function fetchChatrooms() {
-		const response = await getChatrooms(config, categoryId);
-		setCategoryName(response.name);
-		setChats(response.chatrooms);
+		try {
+			const response = await getChatrooms(config, categoryId);
+			setCategoryName(response.data.name);
+			setChats(response.data.chatrooms);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	useEffect(() => {

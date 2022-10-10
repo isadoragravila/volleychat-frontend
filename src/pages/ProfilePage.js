@@ -25,18 +25,30 @@ export default function ProfilePage() {
 	};
 
 	async function fetchCategories() {
-		const response = await getCategories(config);
-		setCategories(response);
+		try {
+			const response = await getCategories(config);
+			setCategories(response.data);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	async function getProfile() {
-		const response = await getProfileById(config, id);
-		setProfile(response.data);
+		try {
+			const response = await getProfileById(config, id);
+			setProfile(response.data);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	async function fetchChatsByCreator() {
-		const response = await getChatsByCreator(config, id);
-		setChats(response.data);
+		try {
+			const response = await getChatsByCreator(config, id);
+			setChats(response.data);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	useEffect(() => {

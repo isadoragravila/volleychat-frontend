@@ -24,13 +24,21 @@ export default function Feed() {
 	};
 
 	async function fetchCategories() {
-		const response = await getCategories(config);
-		setCategories(response);
+		try {
+			const response = await getCategories(config);
+			setCategories(response.data);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	async function fetchChatsByCreator() {
-		const response = await getChatsByCreator(config, userId);
-		setChats(response.data);
+		try {
+			const response = await getChatsByCreator(config, userId);
+			setChats(response.data);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	useEffect(() => {

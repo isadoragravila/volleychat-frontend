@@ -20,12 +20,12 @@ export default function RegisterForm() {
 
 		const userData = { username, email, password, image, bio };
 
-		const response =  await createUser(userData);
-		if (response === 201) {
+		try {
+			await createUser(userData);
 			navigate("/");
-		} else {
+		} catch (error) {
 			setLoading(false);
-			alert(response);
+			alert(error.response.data);
 		}
 	}
 

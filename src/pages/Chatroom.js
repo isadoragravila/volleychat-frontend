@@ -40,31 +40,48 @@ export default function Chatroom() {
 
 
 	async function fetchParticipants() {
-		const response = await getParticipants(config, chatId);
-		setUsers(response);
+		try {
+			const response = await getParticipants(config, chatId);
+			setUsers(response.data);
+		} catch (error) {
+			alert(error.response.data);
+		}
 	}
 
 	async function fetchMessages() {
-		const response = await getMessages(config, chatId);
-		setChatName(response.title);
-		setMessages(response.messages);
-		setUserId(response.userId);
+		try {
+			const response = await getMessages(config, chatId);
+			setChatName(response.data.title);
+			setMessages(response.data.messages);
+			setUserId(response.data.userId);
+		} catch (error) {
+			alert(error.response.data);
+		}
+
 	}
 
 	async function sendStatus() {
-		await updateStatus(config, chatId);
+		try {
+			await updateStatus(config, chatId);
+		} catch (error) {
+			alert(error.response.data);
+			navigate(`/feed/${categoryId}`);
+		}
 	}
 
 	useInterval(() => {
+		sendStatus();
 		fetchMessages();
 		fetchParticipants();
-		sendStatus();
 	}, 3000);
 
 	async function getOutOfChat() {
-		const response = await removeParticipant(config, chatId);
-		if (response === 200) {
+		try {
+			await removeParticipant(config, chatId);
 			navigate(`/feed/${categoryId}`);
+		} catch (error) {
+			alert(error.response.data);
+			navigate("/feed");
 		}
 	}
 
@@ -91,7 +108,7 @@ export default function Chatroom() {
 					</Upside>
 					<Downside>
 						{openParticipants ? (
-							users.map(item => <Participant key={item.id} name={item.name} id={item.id} config={config} chatId={chatId} />)
+							users.map(item => <Participant key={item.id} name={item.name} id={item.id} />)
 						) : (
 							null
 						)}
@@ -99,7 +116,7 @@ export default function Chatroom() {
 				</MenuMobile>
 				<RightSide>
 					<MessageBoard>
-						{messages.map(item => <Message key={item.id} name={item.user.username} content={item.content} writerId={item.userId} userId={userId} config={config} chatId={chatId} />)}
+						{messages.map(item => <Message key={item.id} name={item.user.username} content={item.content} writerId={item.userId} userId={userId} />)}
 						<Margin></Margin>
 					</MessageBoard>
 					<WriteMessage chatId={chatId} fetchMessages={fetchMessages} />
