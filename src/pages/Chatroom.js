@@ -17,6 +17,7 @@ export default function Chatroom() {
 	const { token } = useContext(UserContext);
 	const { categoryId, chatId } = useParams();
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 	const [users, setUsers] = useState([]);
 	const [chatName, setChatName] = useState("");
 	const [messages, setMessages] = useState([]);
@@ -92,17 +93,22 @@ export default function Chatroom() {
 	}, 3000);
 
 	async function getOutOfChat() {
-		try {
-			await removeParticipant(config, chatId);
-			navigate(`/feed/${categoryId}`);
-		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
-			navigate("/feed");
+		if (!loading) {
+			setLoading(true);
+			try {
+				await removeParticipant(config, chatId);
+				navigate(`/feed/${categoryId}`);
+				setLoading(false);
+			} catch (error) {
+				Swal.fire({
+					title: "Oops...",
+					text: error.response.data,
+					icon: "error",
+					confirmButtonColor: "#142B73"
+				});
+				navigate("/feed");
+				setLoading(false);
+			}
 		}
 	}
 

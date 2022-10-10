@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { insertParticipants } from "../services/participants";
 import UserContext from "../context/UserContext";
 import Swal from "sweetalert2";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 export default function ChatCard({ chatId, title, description, time, categoryId }) {
 	const { token } = useContext(UserContext);
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 	const config = {
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -15,9 +16,11 @@ export default function ChatCard({ chatId, title, description, time, categoryId 
 	};
 
 	async function enterChatroom() {
+		setLoading(true);
 		try {
 			await insertParticipants(config, chatId);
 			navigate(`/feed/${categoryId}/chat/${chatId}`);
+			setLoading(false);
 		} catch (error) {
 			Swal.fire({
 				title: "Oops...",
@@ -25,6 +28,7 @@ export default function ChatCard({ chatId, title, description, time, categoryId 
 				icon: "error",
 				confirmButtonColor: "#142B73"
 			});
+			setLoading(false);
 		}
 	}
     
@@ -36,7 +40,7 @@ export default function ChatCard({ chatId, title, description, time, categoryId 
 			</UpSide>
 			<DownSide>
 				<Description data-cy="chatDescription">{description}</Description>
-				<Button data-cy="join" onClick={ enterChatroom }>
+				<Button data-cy="join" disabled={loading} onClick={ enterChatroom }>
 					<p>Join</p>
 				</Button>
 			</DownSide>
@@ -102,9 +106,10 @@ const Time = styled.div`
         font-size: 12px;
     }
 `;
-const Button = styled.div`
+const Button = styled.button`
     width: 96px;
     height: 32px;
+    border: none;
     background-color: #F2C230;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
