@@ -11,6 +11,7 @@ import useInterval from "use-interval";
 import { getMessages } from "../services/messages";
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
+import Swal from "sweetalert2";
 
 export default function Chatroom() {
 	const { token } = useContext(UserContext);
@@ -44,7 +45,12 @@ export default function Chatroom() {
 			const response = await getParticipants(config, chatId);
 			setUsers(response.data);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 		}
 	}
 
@@ -55,7 +61,12 @@ export default function Chatroom() {
 			setMessages(response.data.messages);
 			setUserId(response.data.userId);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 		}
 
 	}
@@ -64,7 +75,12 @@ export default function Chatroom() {
 		try {
 			await updateStatus(config, chatId);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 			navigate(`/feed/${categoryId}`);
 		}
 	}
@@ -80,7 +96,12 @@ export default function Chatroom() {
 			await removeParticipant(config, chatId);
 			navigate(`/feed/${categoryId}`);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 			navigate("/feed");
 		}
 	}

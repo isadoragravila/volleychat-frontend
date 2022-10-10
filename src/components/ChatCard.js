@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { insertParticipants } from "../services/participants";
 import UserContext from "../context/UserContext";
+import Swal from "sweetalert2";
 
 export default function ChatCard({ chatId, title, description, time, categoryId }) {
 	const { token } = useContext(UserContext);
@@ -18,7 +19,12 @@ export default function ChatCard({ chatId, title, description, time, categoryId 
 			await insertParticipants(config, chatId);
 			navigate(`/feed/${categoryId}/chat/${chatId}`);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 		}
 	}
     

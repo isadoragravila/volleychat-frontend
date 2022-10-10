@@ -6,6 +6,7 @@ import { loginUser } from "../services/auth";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { checkToken } from "../utils/validateToken";
+import Swal from "sweetalert2";
 
 export default function LoginForm() {
 	const { setToken } = useContext(UserContext);
@@ -29,7 +30,12 @@ export default function LoginForm() {
 			checkToken(navigate, setToken, page);
 			navigate("/feed");
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 			setLoading(false);
 		}
 	}

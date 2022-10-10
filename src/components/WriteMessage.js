@@ -3,6 +3,7 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
 import { createMessage } from "../services/messages";
+import Swal from "sweetalert2";
 
 export default function WriteMessage({ chatId, fetchMessages }) {
 	const { token } = useContext(UserContext);
@@ -25,7 +26,12 @@ export default function WriteMessage({ chatId, fetchMessages }) {
 			setLoading(false);
 			fetchMessages();
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 			setLoading(false);
 		}
 	}

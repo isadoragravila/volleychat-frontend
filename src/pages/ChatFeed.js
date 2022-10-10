@@ -9,6 +9,7 @@ import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import { getChatrooms } from "../services/chats";
 import useInterval from "use-interval";
+import Swal from "sweetalert2";
 
 export default function ChatFeed() {
 	const navigate = useNavigate();
@@ -29,7 +30,12 @@ export default function ChatFeed() {
 			const response = await getCategories(config);
 			setCategories(response.data);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 		}
 	}
 
@@ -39,7 +45,12 @@ export default function ChatFeed() {
 			setCategoryName(response.data.name);
 			setChats(response.data.chatrooms);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 		}
 	}
 

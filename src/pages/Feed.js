@@ -9,6 +9,7 @@ import MenuButton from "../components/MenuButton";
 import ProfileBox from "../components/ProfileBox";
 import { getChatsByCreator } from "../services/chats";
 import FeedMenu from "../components/FeedMenu";
+import Swal from "sweetalert2";
 
 export default function Feed() {
 	const navigate = useNavigate();
@@ -28,7 +29,12 @@ export default function Feed() {
 			const response = await getCategories(config);
 			setCategories(response.data);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 		}
 	}
 
@@ -37,7 +43,12 @@ export default function Feed() {
 			const response = await getChatsByCreator(config, userId);
 			setChats(response.data);
 		} catch (error) {
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 		}
 	}
 

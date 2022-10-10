@@ -4,6 +4,7 @@ import Input from "../shared/Input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../services/auth";
+import Swal from "sweetalert2";
 
 export default function RegisterForm() {
 	const [loading, setLoading] = useState(false);
@@ -25,7 +26,12 @@ export default function RegisterForm() {
 			navigate("/");
 		} catch (error) {
 			setLoading(false);
-			alert(error.response.data);
+			Swal.fire({
+				title: "Oops...",
+				text: error.response.data,
+				icon: "error",
+				confirmButtonColor: "#142B73"
+			});
 		}
 	}
 
