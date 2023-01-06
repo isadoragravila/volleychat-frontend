@@ -4,17 +4,12 @@ import Login from "./pages/Login";
 import Feed from "./pages/Feed";
 import ChatFeed from "./pages/ChatFeed";
 import Chatroom from "./pages/Chatroom";
-import { useState } from "react";
-import UserContext from "./context/UserContext";
+import { UserProvider } from "./context/UserContext";
 import ProfilePage from "./pages/ProfilePage";
 
 function App() {
-	const [token, setToken] = useState("");
-	const [page, setPage] = useState("feed");
-	const contextValue = { token, setToken, page, setPage };
-
 	return (
-		<UserContext.Provider value={contextValue}>
+		<UserProvider>
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Login />} />
@@ -25,7 +20,7 @@ function App() {
 					<Route path="/profile/:id" element={<ProfilePage />} />
 				</Routes>
 			</BrowserRouter>
-		</UserContext.Provider>
+		</UserProvider>
 	);
 }
 
