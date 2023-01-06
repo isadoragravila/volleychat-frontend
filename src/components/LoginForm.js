@@ -9,7 +9,7 @@ import { checkToken } from "../utils/validateToken";
 import Swal from "sweetalert2";
 
 export default function LoginForm() {
-	const { setToken } = useContext(UserContext);
+	const { setToken, setUserData } = useContext(UserContext);
 	const [loading, setLoading] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -19,10 +19,11 @@ export default function LoginForm() {
 		e.preventDefault();
 		setLoading(true);
 
-		const userData = { username, password };
+		const loginData = { username, password };
 
 		try {
-			const response =  await loginUser(userData);
+			const response =  await loginUser(loginData);
+			setUserData(response.data);
 			setToken(response.data.token);
 			localStorage.setItem("token", response.data.token);
 			localStorage.setItem("userId", response.data.userId);
