@@ -1,23 +1,24 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
+import UserContext from "../context/UserContext";
+import { useContext } from "react";
 
 export default function ProfileBox() {
 	const [toggleBio, setToggleBio] = useState(false);
-	const username = localStorage.getItem("username");
-	const bio = localStorage.getItem("bio");
+	const { userData: user } = useContext(UserContext);
 
 	return (
 		<Conteiner>
 			<UpSide>
-				<Title >Hello, {username}</Title>
+				<Title >Hello, {user.username}</Title>
 				<Toggle onClick={() => setToggleBio(!toggleBio)}>
                     Show bio
 					{toggleBio ? (<ArrowUp />) : <ArrowDown /> }
 				</Toggle>
 			</UpSide>
 			<DownSide>
-				{toggleBio ? (<Bio>{bio}</Bio>) : null }
+				{toggleBio ? (<Bio>{user.bio}</Bio>) : null }
 			</DownSide>
 		</Conteiner>
 	);
