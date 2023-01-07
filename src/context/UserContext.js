@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -8,16 +8,9 @@ export default UserContext;
 
 export function UserProvider({ children }) {
 	const [userData, setUserData] = useLocalStorage("userData", {});
-
-	const [token, setToken] = useState("");
-	const [page, setPage] = useState("feed");
-  
-	const contextValue = { userData, setUserData, token, setToken, page, setPage };
-
-	//userData = { username, image, bio, userId, token }
   
 	return (
-		<UserContext.Provider value={contextValue}>
+		<UserContext.Provider value={{ userData, setUserData }}>
 			{children}
 		</UserContext.Provider>
 	);
