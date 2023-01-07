@@ -5,11 +5,10 @@ import { useState, useContext } from "react";
 import { loginUser } from "../services/auth";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { checkToken } from "../utils/validateToken";
 import Swal from "sweetalert2";
 
 export default function LoginForm() {
-	const { setToken, setUserData } = useContext(UserContext);
+	const { setUserData } = useContext(UserContext);
 	const [loading, setLoading] = useState(false);
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -24,11 +23,6 @@ export default function LoginForm() {
 		try {
 			const response =  await loginUser(loginData);
 			setUserData(response.data);
-			setToken(response.data.token);
-			localStorage.setItem("token", response.data.token);
-			localStorage.setItem("userId", response.data.userId);
-			const page = "feed";
-			checkToken(navigate, setToken, page);
 			navigate("/feed");
 		} catch (error) {
 			Swal.fire({

@@ -5,18 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { FaVolleyballBall } from "react-icons/fa";
 
 export default function Header() {
-	const { setToken } = useContext(UserContext);
+	const { setUserData, userData: user } = useContext(UserContext);
 	const navigate = useNavigate();
-	const imageProfile = localStorage.getItem("image");
-	const userId = localStorage.getItem("userId");
 
 	function logout() {
-		localStorage.removeItem("token");
-		localStorage.removeItem("image");
-		localStorage.removeItem("userId");
-		localStorage.removeItem("bio");
-		localStorage.removeItem("username");
-		setToken("");
+		setUserData({});
+		localStorage.removeItem("userData");
 		navigate("/");
 	}
 	return (
@@ -30,7 +24,7 @@ export default function Header() {
 			</Logo>
 			<Menu>
 				<p data-cy="logout" onClick={logout}>Logout</p>
-				<img data-cy="image" src={imageProfile} alt="user" onClick={() => navigate(`/profile/${userId}`)} />
+				<img data-cy="image" src={user.image} alt="user" onClick={() => navigate(`/profile/${user.userId}`)} />
 			</Menu>
 		</Conteiner>
 	);
