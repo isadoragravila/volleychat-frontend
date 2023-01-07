@@ -2,19 +2,16 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../shared/Logo";
 import RegisterForm from "../components/RegisterForm";
-import { useEffect, useContext } from "react";
-import UserContext from "../context/UserContext";
-import { checkToken } from "../utils/validateToken";
+import { useEffect } from "react";
+import useToken from "../hooks/useToken";
 
 export default function Register() {
 	const navigate = useNavigate();
-	const { setToken } = useContext(UserContext);
-	const tokenStorage = localStorage.getItem("token");
+	const token = useToken();
 
 	useEffect(() => {
-		if (tokenStorage) {
-			const page = "feed";
-			checkToken(navigate, setToken, page);
+		if (token) {
+			navigate("/feed");
 		}
 	}, []);
 

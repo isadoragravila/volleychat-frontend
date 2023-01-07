@@ -3,20 +3,20 @@ import Header from "../components/Header";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
-import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import ProfileBox from "../components/ProfileBox";
 import { getChatsByCreator } from "../services/chats";
 import FeedMenu from "../components/FeedMenu";
 import Swal from "sweetalert2";
+import useToken from "../hooks/useToken";
 
 export default function Feed() {
 	const navigate = useNavigate();
-	const { token, setToken } = useContext(UserContext);
+	const { userData: user } = useContext(UserContext);
 	const [categories, setCategories] = useState([]);
 	const [chats, setChats] = useState([]);
-	const userId = localStorage.getItem("userId");
+	const token = useToken();
 
 	const config = {
 		headers: {
@@ -40,7 +40,7 @@ export default function Feed() {
 
 	async function fetchChatsByCreator() {
 		try {
-			const response = await getChatsByCreator(config, userId);
+			const response = await getChatsByCreator(config, user.userId);
 			setChats(response.data);
 		} catch (error) {
 			Swal.fire({
@@ -54,8 +54,7 @@ export default function Feed() {
 
 	useEffect(() => {
 		if (!token) {
-			const page = "feed";
-			checkToken(navigate, setToken, page);
+			navigate("/");
 			return;
 		}
 

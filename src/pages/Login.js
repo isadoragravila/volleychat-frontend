@@ -2,17 +2,17 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../shared/Logo";
 import LoginForm from "../components/LoginForm";
-import { checkToken } from "../utils/validateToken";
-import { useEffect, useContext } from "react";
-import UserContext from "../context/UserContext";
+import useToken from "../hooks/useToken";
+import { useEffect } from "react";
 
 export default function Login() {
 	const navigate = useNavigate();
-	const { setToken } = useContext(UserContext);
-    
+	const token = useToken();
+
 	useEffect(() => {
-		const page = "feed";
-		checkToken(navigate, setToken, page);
+		if (token) {
+			navigate("/feed");
+		}
 	}, []);
 
 	return (

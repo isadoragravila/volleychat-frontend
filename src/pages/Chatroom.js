@@ -4,17 +4,17 @@ import Participant from "../components/Participant";
 import WriteMessage from "../components/WriteMessage";
 import Message from "../components/Message";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { getParticipants, removeParticipant, updateStatus } from "../services/participants";
-import UserContext from "../context/UserContext";
 import useInterval from "use-interval";
 import { getMessages } from "../services/messages";
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import Swal from "sweetalert2";
+import useToken from "../hooks/useToken";
 
 export default function Chatroom() {
-	const { token } = useContext(UserContext);
+	const token = useToken();
 	const { categoryId, chatId } = useParams();
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);

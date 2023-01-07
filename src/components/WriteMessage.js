@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { RiSendPlaneFill } from "react-icons/ri";
-import { useState, useContext } from "react";
-import UserContext from "../context/UserContext";
+import { useState } from "react";
 import { createMessage } from "../services/messages";
 import Swal from "sweetalert2";
+import useToken from "../hooks/useToken";
 
 export default function WriteMessage({ chatId, fetchMessages }) {
-	const { token } = useContext(UserContext);
+	const token = useToken();
 	const [content, setContent] = useState("");
 	const [loading, setLoading] = useState(false);
 

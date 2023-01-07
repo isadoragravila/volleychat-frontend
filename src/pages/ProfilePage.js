@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import UserContext from "../context/UserContext";
-import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import { getProfileById } from "../services/participants";
@@ -11,14 +9,16 @@ import { getChatsByCreator } from "../services/chats";
 import FeedMenu from "../components/FeedMenu";
 import useInterval from "use-interval";
 import Swal from "sweetalert2";
+import useToken from "../hooks/useToken";
 
 export default function ProfilePage() {
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const { token, setToken } = useContext(UserContext);
 	const [categories, setCategories] = useState([]);
 	const [profile, setProfile] = useState({});
 	const [chats, setChats] = useState([]);
+	const token = useToken();
+
 	const config = {
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -69,8 +69,7 @@ export default function ProfilePage() {
 
 	useEffect(() => {
 		if (!token) {
-			const page = `profile/${id}`;
-			checkToken(navigate, setToken, page);
+			navigate("/");
 			return;
 		}
 

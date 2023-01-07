@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 import { IoClose } from "react-icons/io5";
 import { createChat } from "../services/chats";
-import UserContext from "../context/UserContext";
 import { getChatrooms } from "../services/chats";
 import { useNavigate } from "react-router-dom";
 import { insertParticipants } from "../services/participants";
 import Swal from "sweetalert2";
+import useToken from "../hooks/useToken";
 
 export default function CreateChat({ categoryId, setChats }) {
 	const navigate = useNavigate();
-	const { token } = useContext(UserContext);
+	const token = useToken();
 	const [loading, setLoading] = useState(false);
 	const [openCreate, setOpenCreate] = useState(false);
 	const [title, setTitle] = useState("");

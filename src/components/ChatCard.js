@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { insertParticipants } from "../services/participants";
-import UserContext from "../context/UserContext";
+
 import Swal from "sweetalert2";
+import useToken from "../hooks/useToken";
 
 export default function ChatCard({ chatId, title, description, time, categoryId }) {
-	const { token } = useContext(UserContext);
+	const token = useToken();
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const config = {

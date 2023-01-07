@@ -1,23 +1,22 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import ChatMenu from "../components/ChatMenu";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import UserContext from "../context/UserContext";
-import { checkToken } from "../utils/validateToken";
 import { getCategories } from "../services/categories";
 import MenuButton from "../components/MenuButton";
 import { getChatrooms } from "../services/chats";
 import useInterval from "use-interval";
 import Swal from "sweetalert2";
+import useToken from "../hooks/useToken";
 
 export default function ChatFeed() {
 	const navigate = useNavigate();
-	const { token, setToken } = useContext(UserContext);
 	const { categoryId } = useParams();
 	const [categories, setCategories] = useState([]);
 	const [chats, setChats] = useState([]);
 	const [categoryName, setCategoryName] = useState("");
+	const token = useToken();
 
 	const config = {
 		headers: {
@@ -56,8 +55,7 @@ export default function ChatFeed() {
 
 	useEffect(() => {
 		if (!token) {
-			const page = (`feed/${categoryId}`);
-			checkToken(navigate, setToken, page);
+			navigate("/");
 			return;
 		}
 		fetchCategories();
