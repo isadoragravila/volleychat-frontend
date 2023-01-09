@@ -1,10 +1,10 @@
-import styled from "styled-components";
 import Button from "../shared/Button";
 import Input from "../shared/Input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../services/auth";
 import Swal from "sweetalert2";
+import FormContainer from "../shared/FormContainer";
 
 export default function RegisterForm() {
 	const [loading, setLoading] = useState(false);
@@ -36,23 +36,13 @@ export default function RegisterForm() {
 	}
 
 	return (
-		<Form onSubmit={registerUser}>
+		<FormContainer onSubmit={registerUser}>
 			<Input type="text" placeholder="username" disabled={loading} value={username} onChange={(e) => setUsername(e.target.value)} />
 			<Input type="email" placeholder="email" disabled={loading} value={email} onChange={(e) => setEmail(e.target.value)} />
 			<Input type="password" placeholder="password" disabled={loading} value={password} onChange={(e) => setPassword(e.target.value)} />
 			<Input type="url" placeholder="imageUrl" disabled={loading} value={image} onChange={(e) => setImage(e.target.value)} />
 			<Input type="text" placeholder="bio" disabled={loading} value={bio} onChange={(e) => setBio(e.target.value)} />
 			<Button type="submit" disabled={loading} name={"Register"} />
-		</Form>
+		</FormContainer>
 	);
 }
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 600px;
-    @media (max-width: 611px) {
-        width: 100%;
-    }
-`;

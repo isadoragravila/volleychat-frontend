@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Button from "../shared/Button";
 import Input from "../shared/Input";
 import { useState, useContext } from "react";
@@ -6,6 +5,7 @@ import { loginUser } from "../services/auth";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import FormContainer from "../shared/FormContainer";
 
 export default function LoginForm() {
 	const { setUserData } = useContext(UserContext);
@@ -36,20 +36,10 @@ export default function LoginForm() {
 	}
 
 	return (
-		<Form onSubmit={login}>
+		<FormContainer onSubmit={login}>
 			<Input type="text" placeholder="username" disabled={loading} value={username} onChange={(e) => setUsername(e.target.value)} />
 			<Input type="password" placeholder="password" disabled={loading} value={password} onChange={(e) => setPassword(e.target.value)} />
 			<Button type="submit" disabled={loading} name={"Login"} />
-		</Form>
+		</FormContainer>
 	);
 }
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 600px;
-    @media (max-width: 611px) {
-        width: 100%;
-    }
-`;
