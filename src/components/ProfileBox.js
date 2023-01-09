@@ -13,12 +13,12 @@ export default function ProfileBox() {
 			<UpSide>
 				<Title >Hello, {user.username}</Title>
 				<Toggle onClick={() => setToggleBio(!toggleBio)}>
-                    Show bio
-					{toggleBio ? (<ArrowUp />) : <ArrowDown /> }
+          Show bio
+					{toggleBio ? (<ArrowUp />) : <ArrowDown />}
 				</Toggle>
 			</UpSide>
 			<DownSide>
-				{toggleBio ? (<Bio>{user.bio}</Bio>) : null }
+				{toggleBio ? (<Bio>{user.bio}</Bio>) : null}
 			</DownSide>
 		</Conteiner>
 	);
