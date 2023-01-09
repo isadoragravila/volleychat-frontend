@@ -1,4 +1,4 @@
-import ChatMenu from "../components/ChatMenu";
+import ChatMenu from "../components/Feed/ChatMenu";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCategories } from "../services/categories";
@@ -6,9 +6,9 @@ import { getChatrooms } from "../services/chats";
 import useInterval from "use-interval";
 import Swal from "sweetalert2";
 import useToken from "../hooks/useToken";
-import CategoryMenu from "../components/CategoryMenu";
-import FeedContainer from "../shared/FeedContainer";
-import FeedWrapper from "../components/FeedWrapper";
+import CategoryMenu from "../components/Feed/CategoryMenu";
+import FeedContainer from "../components/Feed/FeedContainer";
+import FeedWrapper from "../components/Feed/FeedWrapper";
 
 export default function ChatFeed() {
 	const navigate = useNavigate();

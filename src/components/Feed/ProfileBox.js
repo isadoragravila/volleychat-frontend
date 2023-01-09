@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
-import UserContext from "../context/UserContext";
+import UserContext from "../../context/UserContext";
 import { useContext } from "react";
 
 export default function ProfileBox() {

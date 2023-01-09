@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { insertParticipants } from "../services/participants";
+import { insertParticipants } from "../../services/participants";
 
 import Swal from "sweetalert2";
-import useToken from "../hooks/useToken";
+import useToken from "../../hooks/useToken";
 
 export default function ChatCard({ chatId, title, description, time, categoryId }) {
 	const token = useToken();

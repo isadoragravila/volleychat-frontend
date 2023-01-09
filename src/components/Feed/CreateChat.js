@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { useState } from "react";
-import Input from "./Form/Input";
-import Button from "./Form/Button";
+import Input from "../Form/Input";
+import Button from "../Form/Button";
 import { IoClose } from "react-icons/io5";
-import { createChat } from "../services/chats";
-import { getChatrooms } from "../services/chats";
+import { createChat } from "../../services/chats";
+import { getChatrooms } from "../../services/chats";
 import { useNavigate } from "react-router-dom";
-import { insertParticipants } from "../services/participants";
+import { insertParticipants } from "../../services/participants";
 import Swal from "sweetalert2";
-import useToken from "../hooks/useToken";
+import useToken from "../../hooks/useToken";
 
 export default function CreateChat({ categoryId, setChats }) {
 	const navigate = useNavigate();

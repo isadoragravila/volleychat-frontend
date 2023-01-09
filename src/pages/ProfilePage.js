@@ -3,14 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCategories } from "../services/categories";
 import { getProfileById } from "../services/participants";
 import { getChatsByCreator } from "../services/chats";
-import FeedMenu from "../components/FeedMenu";
+import FeedMenu from "../components/Feed/FeedMenu";
 import useInterval from "use-interval";
 import Swal from "sweetalert2";
 import useToken from "../hooks/useToken";
-import CategoryMenu from "../components/CategoryMenu";
-import FeedContainer from "../shared/FeedContainer";
-import FeedWrapper from "../components/FeedWrapper";
-import ProfilePageBox from "../components/ProfilePageBox";
+import CategoryMenu from "../components/Feed/CategoryMenu";
+import FeedContainer from "../components/Feed/FeedContainer";
+import FeedWrapper from "../components/Feed/FeedWrapper";
+import ProfilePageBox from "../components/Feed/ProfilePageBox";
 
 export default function ProfilePage() {
 	const navigate = useNavigate();
