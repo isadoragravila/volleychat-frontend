@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import Input from "../shared/Input";
-import Button from "../shared/Button";
+import Input from "./Form/Input";
+import Button from "./Form/Button";
 import { IoClose } from "react-icons/io5";
 import { createChat } from "../services/chats";
 import { getChatrooms } from "../services/chats";

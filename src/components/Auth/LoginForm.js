@@ -1,11 +1,11 @@
-import Button from "../shared/Button";
-import Input from "../shared/Input";
+import Button from "../Form/Button";
+import Input from "../Form/Input";
 import { useState, useContext } from "react";
-import { loginUser } from "../services/auth";
-import UserContext from "../context/UserContext";
+import { loginUser } from "../../services/auth";
+import UserContext from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import FormContainer from "../shared/FormContainer";
+import FormContainer from "../Form/FormContainer";
 
 export default function LoginForm() {
 	const { setUserData } = useContext(UserContext);

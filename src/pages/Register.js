@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import Logo from "../shared/Logo";
-import RegisterForm from "../components/RegisterForm";
+import Logo from "../components/Auth/Logo";
+import RegisterForm from "../components/Auth/RegisterForm";
 import { useEffect } from "react";
 import useToken from "../hooks/useToken";
-import Link from "../shared/Link";
-import AuthContainer from "../shared/AuthContainer";
+import Link from "../components/Auth/Link";
+import AuthContainer from "../components/Auth/AuthContainer";
 import LoadingPage from "../components/LoadingPage";
 
 export default function Register() {

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import Logo from "../shared/Logo";
-import LoginForm from "../components/LoginForm";
+import Logo from "../components/Auth/Logo";
+import LoginForm from "../components/Auth/LoginForm";
 import useToken from "../hooks/useToken";
 import { useEffect } from "react";
-import Link from "../shared/Link";
-import AuthContainer from "../shared/AuthContainer";
+import Link from "../components/Auth/Link";
+import AuthContainer from "../components/Auth/AuthContainer";
 import LoadingPage from "../components/LoadingPage";
 
 export default function Login() {

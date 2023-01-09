@@ -1,10 +1,10 @@
-import Button from "../shared/Button";
-import Input from "../shared/Input";
+import Button from "../Form/Button";
+import Input from "../Form/Input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../services/auth";
+import { createUser } from "../../services/auth";
 import Swal from "sweetalert2";
-import FormContainer from "../shared/FormContainer";
+import FormContainer from "../Form/FormContainer";
 
 export default function RegisterForm() {
 	const [loading, setLoading] = useState(false);
