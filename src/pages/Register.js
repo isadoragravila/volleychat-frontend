@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import useToken from "../hooks/useToken";
 import Link from "../shared/Link";
 import AuthContainer from "../shared/AuthContainer";
+import LoadingPage from "../components/LoadingPage";
 
 export default function Register() {
 	const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function Register() {
 	return (
 		<AuthContainer>
 			<Logo />
-			<RegisterForm />
+			{token ? <LoadingPage /> : <RegisterForm />}
 			<Link to="/" data-cy="goToLogin">
         Already have an account? Switch back to login!
 			</Link>

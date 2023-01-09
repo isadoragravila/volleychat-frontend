@@ -6,6 +6,7 @@ import useToken from "../hooks/useToken";
 import { useEffect } from "react";
 import Link from "../shared/Link";
 import AuthContainer from "../shared/AuthContainer";
+import LoadingPage from "../components/LoadingPage";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Login() {
           Uniting people with the same love for volleyball. Create chatrooms and make new friends.
 				</p>
 			</Subtitle>
-			<LoginForm />
+			{token ? <LoadingPage /> : <LoginForm />}
 			<Link to="/sign-up" data-cy="goToRegister">
         First time? Create an account!
 			</Link>
