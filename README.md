@@ -96,6 +96,10 @@ Depois, dentro da pasta, rode o seguinte comando para instalar as dependências:
 ```
 npm install
 ```
+Então, configure seus arquivos .env e .env.test, de acordo com o .env.example:
+```
+REACT_APP_API_BASE_URL= deve apontar para a API do servidor
+```
 
 Para inicializar o servidor, rode:
 ```
