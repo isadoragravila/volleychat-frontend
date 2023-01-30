@@ -1,10 +1,10 @@
-import WriteMessage from "../components/WriteMessage";
+import WriteMessage from "../components/Chatroom/WriteMessage";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getParticipants, removeParticipant, updateStatus } from "../services/participants";
 import useInterval from "use-interval";
 import { getMessages } from "../services/messages";
-import Swal from "sweetalert2";
+import { alertPopUp } from "../utils/alertPopUp";
 import useToken from "../hooks/useToken";
 import ChatroomContainer from "../components/Chatroom/ChatroomContainer";
 import ParticipantMenu from "../components/Chatroom/ParticipantMenu";
@@ -44,12 +44,7 @@ export default function Chatroom() {
 			const response = await getParticipants(config, chatId);
 			setUsers(response.data);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 
@@ -60,12 +55,7 @@ export default function Chatroom() {
 			setMessages(response.data.messages);
 			setUserId(response.data.userId);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 
 	}
@@ -74,12 +64,7 @@ export default function Chatroom() {
 		try {
 			await updateStatus(config, chatId);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 			navigate(`/feed/${categoryId}`);
 		}
 	}
@@ -98,12 +83,7 @@ export default function Chatroom() {
 				navigate(`/feed/${categoryId}`);
 				setLoading(false);
 			} catch (error) {
-				Swal.fire({
-					title: "Oops...",
-					text: error.response.data,
-					icon: "error",
-					confirmButtonColor: "#142B73"
-				});
+				alertPopUp(error.response.data);
 				navigate("/feed");
 				setLoading(false);
 			}

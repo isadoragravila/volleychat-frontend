@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCategories } from "../services/categories";
 import { getChatrooms } from "../services/chats";
 import useInterval from "use-interval";
-import Swal from "sweetalert2";
+import { alertPopUp } from "../utils/alertPopUp";
 import useToken from "../hooks/useToken";
 import CategoryMenu from "../components/Feed/CategoryMenu";
 import FeedContainer from "../components/Feed/FeedContainer";
@@ -29,12 +29,7 @@ export default function ChatFeed() {
 			const response = await getCategories(config);
 			setCategories(response.data);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 
@@ -44,12 +39,7 @@ export default function ChatFeed() {
 			setCategoryName(response.data.name);
 			setChats(response.data.chatrooms);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 

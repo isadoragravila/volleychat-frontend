@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { insertParticipants } from "../../services/participants";
-
-import Swal from "sweetalert2";
+import { alertPopUp } from "../../utils/alertPopUp";
 import useToken from "../../hooks/useToken";
 
 export default function ChatCard({ chatId, title, description, time, categoryId }) {
@@ -23,12 +22,7 @@ export default function ChatCard({ chatId, title, description, time, categoryId 
 			navigate(`/feed/${categoryId}/chat/${chatId}`);
 			setLoading(false);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 			setLoading(false);
 		}
 	}

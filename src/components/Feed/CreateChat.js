@@ -7,7 +7,7 @@ import { createChat } from "../../services/chats";
 import { getChatrooms } from "../../services/chats";
 import { useNavigate } from "react-router-dom";
 import { insertParticipants } from "../../services/participants";
-import Swal from "sweetalert2";
+import { alertPopUp } from "../../utils/alertPopUp";
 import useToken from "../../hooks/useToken";
 
 export default function CreateChat({ categoryId, setChats }) {
@@ -29,12 +29,7 @@ export default function CreateChat({ categoryId, setChats }) {
 			await insertParticipants(config, chatId);
 			navigate(`/feed/${categoryId}/chat/${chatId}`);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 
@@ -54,12 +49,7 @@ export default function CreateChat({ categoryId, setChats }) {
 			fetchChatrooms();
 			await enterChatroom(chatId);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 			setLoading(false);
 		}
 	}
@@ -69,12 +59,7 @@ export default function CreateChat({ categoryId, setChats }) {
 			const response = await getChatrooms(config, categoryId);
 			setChats(response.data.chatrooms);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 

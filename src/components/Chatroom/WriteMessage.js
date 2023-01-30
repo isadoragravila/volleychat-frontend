@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { useState } from "react";
-import { createMessage } from "../services/messages";
-import Swal from "sweetalert2";
-import useToken from "../hooks/useToken";
+import { createMessage } from "../../services/messages";
+import { alertPopUp } from "../../utils/alertPopUp";
+import useToken from "../../hooks/useToken";
 
 export default function WriteMessage({ chatId, fetchMessages }) {
 	const token = useToken();
@@ -26,12 +26,7 @@ export default function WriteMessage({ chatId, fetchMessages }) {
 			setLoading(false);
 			fetchMessages();
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 			setLoading(false);
 		}
 	}

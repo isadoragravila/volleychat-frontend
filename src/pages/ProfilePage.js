@@ -5,7 +5,7 @@ import { getProfileById } from "../services/participants";
 import { getChatsByCreator } from "../services/chats";
 import FeedMenu from "../components/Feed/FeedMenu";
 import useInterval from "use-interval";
-import Swal from "sweetalert2";
+import { alertPopUp } from "../utils/alertPopUp";
 import useToken from "../hooks/useToken";
 import CategoryMenu from "../components/Feed/CategoryMenu";
 import FeedContainer from "../components/Feed/FeedContainer";
@@ -31,12 +31,7 @@ export default function ProfilePage() {
 			const response = await getCategories(config);
 			setCategories(response.data);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 
@@ -45,12 +40,7 @@ export default function ProfilePage() {
 			const response = await getProfileById(config, id);
 			setProfile(response.data);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 
@@ -59,12 +49,7 @@ export default function ProfilePage() {
 			const response = await getChatsByCreator(config, id);
 			setChats(response.data);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 

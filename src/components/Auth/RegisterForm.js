@@ -3,8 +3,8 @@ import Input from "../Form/Input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../../services/auth";
-import Swal from "sweetalert2";
 import FormContainer from "../Form/FormContainer";
+import { alertPopUp } from "../../utils/alertPopUp";
 
 export default function RegisterForm() {
 	const [loading, setLoading] = useState(false);
@@ -26,12 +26,7 @@ export default function RegisterForm() {
 			navigate("/");
 		} catch (error) {
 			setLoading(false);
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 

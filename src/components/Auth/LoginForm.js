@@ -4,8 +4,8 @@ import { useState, useContext } from "react";
 import { loginUser } from "../../services/auth";
 import UserContext from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import FormContainer from "../Form/FormContainer";
+import { alertPopUp } from "../../utils/alertPopUp";
 
 export default function LoginForm() {
 	const { setUserData } = useContext(UserContext);
@@ -25,12 +25,7 @@ export default function LoginForm() {
 			setUserData(response.data);
 			navigate("/feed");
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 			setLoading(false);
 		}
 	}

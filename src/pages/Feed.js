@@ -6,7 +6,7 @@ import { getCategories } from "../services/categories";
 import ProfileBox from "../components/Feed/ProfileBox";
 import { getChatsByCreator } from "../services/chats";
 import FeedMenu from "../components/Feed/FeedMenu";
-import Swal from "sweetalert2";
+import { alertPopUp } from "../utils/alertPopUp";
 import useToken from "../hooks/useToken";
 import CategoryMenu from "../components/Feed/CategoryMenu";
 import FeedContainer from "../components/Feed/FeedContainer";
@@ -30,12 +30,7 @@ export default function Feed() {
 			const response = await getCategories(config);
 			setCategories(response.data);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 
@@ -44,12 +39,7 @@ export default function Feed() {
 			const response = await getChatsByCreator(config, user.userId);
 			setChats(response.data);
 		} catch (error) {
-			Swal.fire({
-				title: "Oops...",
-				text: error.response.data,
-				icon: "error",
-				confirmButtonColor: "#142B73"
-			});
+			alertPopUp(error.response.data);
 		}
 	}
 
